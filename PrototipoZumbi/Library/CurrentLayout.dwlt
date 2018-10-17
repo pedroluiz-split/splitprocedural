@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 471}
   m_MaxSize: {x: 18008, y: 14021}
   vertical: 0
-  controlID: 3243
+  controlID: 1835
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 436, y: 471}
   m_MaxSize: {x: 14006, y: 14021}
   vertical: 0
-  controlID: 3377
+  controlID: 1836
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 471}
   m_MaxSize: {x: 10002, y: 14021}
   vertical: 1
-  controlID: 3400
+  controlID: 1885
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -228,10 +228,10 @@ MonoBehaviour:
     y: 0
     width: 966
     height: 987
-  m_MinSize: {x: 204, y: 421}
-  m_MaxSize: {x: 4004, y: 8021}
+  m_MinSize: {x: 204, y: 442}
+  m_MaxSize: {x: 4004, y: 8042}
   vertical: 1
-  controlID: 3378
+  controlID: 1837
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_MinSize: {x: 277, y: 192}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 3244
+  controlID: 1993
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -466,9 +466,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: a2610000
-    m_LastClickedID: 24994
-    m_ExpandedIDs: 3eb5feff2eb6feff40b7feff1c26ffff1827ffff2a28ffffe231ffffda32ffffec33ffff2eedffff24eeffff36efffff9efbffff00000000a43000003631000028580000a2600000
+    m_SelectedIDs: f4280000
+    m_LastClickedID: 10484
+    m_ExpandedIDs: 9efbffff00000000ac280000f428000076290000a2290000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -530,18 +530,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 53
   m_LastFolders:
-  - Assets/Scripts
+  - Assets
   m_LastFoldersGridSize: 53
-  m_LastProjectPath: C:\Users\usuario\MEGA\Games Proprios\Menino Ney\PrototipoZumbi
+  m_LastProjectPath: C:\Users\usuario\Documents\GitHub\splitprocedural\PrototipoZumbi
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 1c280000
-    m_LastClickedID: 10268
+    m_SelectedIDs: 80270000
+    m_LastClickedID: 10112
     m_ExpandedIDs: 0000000080270000ba27000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -653,14 +653,14 @@ MonoBehaviour:
     height: 302
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 4561.037640681818
+  lastFramingTime: 10330.840670168058
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -8.128418, y: 3.932251, z: 0.00029182434}
+    m_Target: {x: 920.0076, y: 655.07416, z: 8.421736}
     speed: 2
-    m_Value: {x: -8.128418, y: 3.932251, z: 0.00029182434}
+    m_Value: {x: 920.0076, y: 655.07416, z: 8.421736}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -688,9 +688,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 5.661432
+    m_Target: 1391.8036
     speed: 2
-    m_Value: 5.661432
+    m_Value: 1391.8036
   m_Ortho:
     m_Target: 1
     speed: 2

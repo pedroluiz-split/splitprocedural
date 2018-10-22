@@ -28,6 +28,36 @@ public class Predios : MonoBehaviour {
 			predios[i].SetActive(false);
 		}
 	}
+
+	public void ReordenarPosicoes ()
+	{
+		float nextPosX = posicaoInicial.x;
+		float nextPosY = posicaoInicial.y;
+		int predioAtivado = 0;
+
+		for (int i = 0; i < predios.Length; i++) 
+		{
+			predios[i].transform.position = posicaoInicial;
+		}
+
+		//Ver quais predios estão ativados e reordená-los
+		for (int i = 1; i < transform.childCount; i++) 
+		{
+			if (transform.GetChild (i).gameObject.activeSelf) 
+			{
+				predioAtivado ++;
+				predios [i].transform.position = new Vector2 (nextPosX, nextPosY);
+				//Seta o x e y da proxima posicao
+				nextPosX += predios [i].GetComponent<SpriteRenderer> ().bounds.size.x;
+				if (predioAtivado % limLinha == 0) 
+				{
+					nextPosY -= (predios [predios.Length-1].GetComponent<SpriteRenderer> ().bounds.size.y);
+					nextPosX = posicaoInicial.x;
+				}
+			}
+		}
+		predios [0].transform.position = new Vector2 (nextPosX, nextPosY);
+	}
 	
 	public void OrganizarPredios ()
 	{

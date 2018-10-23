@@ -53,9 +53,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CallScene.cs" />
      <Compile Include="Assets\Scripts\CharacterController.cs" />
+     <Compile Include="Assets\Scripts\ListaStrings.cs" />
      <Compile Include="Assets\Scripts\OldController.cs" />
      <Compile Include="Assets\Scripts\Personalidade.cs" />
      <Compile Include="Assets\Scripts\Predios.cs" />
+     <Compile Include="Assets\Scripts\RandomNumber.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

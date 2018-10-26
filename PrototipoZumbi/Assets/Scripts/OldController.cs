@@ -103,39 +103,58 @@ public class OldController : MonoBehaviour {
 	{
 		bool ganhou = false;
 		bool perdeu = false;
+		List<GameObject> listaAmigosAtivados = new List<GameObject> ();
+		List<GameObject> listaAmigosDesativados = new List<GameObject> ();
+
 		//Roda a chance de perder um amigo
 		if (Random.Range (0, 10) > 7) {
 			//Correr pelos filhos de "Amigos" (sem contar o 0) e ver qual está ativo e desativar
 			for (int i = 1; i < amigos.transform.childCount; i++) {
 				//Caso o filho esteja ativado, desativá-lo
-				if (amigos.transform.GetChild (i).gameObject.activeSelf) 
-				{
-					perdeu = true;
-					amigos.transform.GetChild (i).gameObject.SetActive(false);
-					i = amigos.transform.childCount;
+				if (amigos.transform.GetChild (i).gameObject.activeSelf) {
+					listaAmigosAtivados.Add (amigos.transform.GetChild (i).gameObject);
+
+					//amigos.transform.GetChild (i).gameObject.SetActive (false);
+					//i = amigos.transform.childCount;
 				}
 			}
 
-			//Reordenar posições dos amigos
-			amigos.GetComponent<Predios>().ReordenarPosicoes();
+			//Veja se a lista de amigos ativados tem algum, e escolhe um aleatoriamente e desativa
+			if (listaAmigosAtivados.Count > 0) {
+				listaAmigosAtivados [Random.Range (0, listaAmigosAtivados.Count)].SetActive (false);
+				perdeu = true;
+
+				//Reordenar posições dos amigos
+				amigos.GetComponent<Predios> ().ReordenarPosicoes ();
+			}
+
 		}
 
 		//Roda a chance de ganhar um amigo
-		if (Random.Range (0, 10) > 7) 
-		{
+		if (Random.Range (0, 10) > 7) {
 			//Correr pelos filhos de "Amigos" (sem contar o 0) e ver qual está desativado e ativar
 			for (int i = 1; i < amigos.transform.childCount; i++) {
 				//Caso o filho esteja ativado, desativá-lo
-				if (!amigos.transform.GetChild (i).gameObject.activeSelf) 
-				{
-					ganhou = true;
-					amigos.transform.GetChild (i).gameObject.SetActive(true);
-					i = amigos.transform.childCount;
+				if (!amigos.transform.GetChild (i).gameObject.activeSelf) {
+					listaAmigosDesativados.Add (amigos.transform.GetChild (i).gameObject);
+//					ganhou = true;
+//					amigos.transform.GetChild (i).gameObject.SetActive (true);
+//					i = amigos.transform.childCount;
 				}
+
+
 			}
 
-			//Reordenar posições dos amigos
-			amigos.GetComponent<Predios>().ReordenarPosicoes();
+			if (listaAmigosDesativados.Count > 0) 
+			{
+				listaAmigosDesativados[Random.Range(0, listaAmigosDesativados.Count)].SetActive(true);
+				ganhou = true;
+
+				//Reordenar posições dos amigos
+				amigos.GetComponent<Predios>().ReordenarPosicoes();
+			}
+
+
 		}
 
 		return new bool[2]{ganhou,perdeu};

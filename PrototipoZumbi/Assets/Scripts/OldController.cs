@@ -147,7 +147,9 @@ public class OldController : MonoBehaviour {
 
 			if (listaAmigosDesativados.Count > 0) 
 			{
-				listaAmigosDesativados[Random.Range(0, listaAmigosDesativados.Count)].SetActive(true);
+				int amigoAleatorio = Random.Range(0, listaAmigosDesativados.Count);
+				listaAmigosDesativados[amigoAleatorio].SetActive(true);
+				listaAmigosDesativados[amigoAleatorio].GetComponent<Amigo>().EscolherTudo();
 				ganhou = true;
 
 				//Reordenar posições dos amigos

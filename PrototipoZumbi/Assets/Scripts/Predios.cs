@@ -20,6 +20,14 @@ public class Predios : MonoBehaviour {
 		OrganizarPredios();
 	}
 
+	public void ResetarAmigos ()
+	{
+		for (int i = 1; i < transform.childCount; i++) 
+		{
+			transform.GetChild(i).GetComponent<Amigo>().EscolherTudo();
+		}
+	}
+
 	public void VoltarPredios ()
 	{
 		for (int i = 0; i < predios.Length; i++) 

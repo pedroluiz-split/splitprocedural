@@ -12,9 +12,12 @@ public class Amigo : MonoBehaviour {
 	public string profissaoEscolhida;
 	public string descricaoEscolhida;
 	public GameObject telaAmigo;
+	private TextAsset nomeMascText;
+	private TextAsset nomeFemText;
+	public bool personagemMasc;
 
 	// Use this for initialization
-	void Start () 
+	void Start ()
 	{
 		EscolherTudo();
 	}
@@ -36,6 +39,15 @@ public class Amigo : MonoBehaviour {
 
 	public void EscolherTudo ()
 	{
+		if (personagemMasc) {
+			nomeMascText = Resources.Load ("NomesMasculinos") as TextAsset;
+			nomesPossiveis = nomeMascText.text.Split (new string[]{ "\n" }, System.StringSplitOptions.None);
+		} 
+		else {
+			nomeFemText = Resources.Load ("NomesFemininos") as TextAsset;
+			nomesPossiveis = nomeFemText.text.Split (new string[]{ "\n" }, System.StringSplitOptions.None);
+		}
+
 		EscolherNome();
 		EscolherProfissao();
 		EscolherDescricao();

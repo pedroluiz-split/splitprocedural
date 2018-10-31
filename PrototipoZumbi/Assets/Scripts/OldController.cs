@@ -21,7 +21,16 @@ public class OldController : MonoBehaviour {
 	public float avisoFomeLim = 0.5f;
 	public float avisoFadigaLim = 0.5f;
 	private GameObject viewportInicial;
-	
+	public static OldController oldController;
+
+	void Awake ()
+	{
+		if (oldController == null)
+			oldController = this;
+		else
+			Destroy(this);
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -40,6 +49,14 @@ public class OldController : MonoBehaviour {
 		spriteMaxDay = int.Parse(transform.GetChild(1).name.Replace("day",""));
 
 		fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA 1\n\nComeçou o apocalipse.";
+	}
+
+	public void AdicionarTextoTimeLine (string texto)
+	{
+		if (fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Contains ("DIA " + diasPassados))
+			fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Replace ("DIA " + diasPassados, "DIA " + diasPassados + "\n\n"+texto);
+		else
+				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA " + diasPassados + "\n\n"+texto+"\n\n" + fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text;
 	}
 
 
@@ -77,8 +94,7 @@ public class OldController : MonoBehaviour {
 
 		bool[] roleta = RoletaAmigos ();
 
-		if (roleta [1]) 
-		{
+		if (roleta [1]) {
 			if (fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Contains ("DIA " + diasPassados))
 				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Replace ("DIA " + diasPassados, "DIA " + diasPassados + "\n\nPerdi um querido amigo...");
 			else
@@ -96,7 +112,11 @@ public class OldController : MonoBehaviour {
 //			ResetarDias ();
 //			CharacterController.controller.Gerar_Personagem();
 			Morreu ();
+		} else {
+			ControladorEventos.controladorEventos.SortearEvento();
 		}
+
+
 	}
 
 	public bool[] RoletaAmigos ()
@@ -125,7 +145,7 @@ public class OldController : MonoBehaviour {
 				perdeu = true;
 
 				//Reordenar posições dos amigos
-				amigos.GetComponent<Predios> ().ReordenarPosicoes ();
+				StartCoroutine(amigos.GetComponent<Amigos> ().ReordenarPosicoes ());
 			}
 
 		}
@@ -153,7 +173,7 @@ public class OldController : MonoBehaviour {
 				ganhou = true;
 
 				//Reordenar posições dos amigos
-				amigos.GetComponent<Predios>().ReordenarPosicoes();
+				StartCoroutine(amigos.GetComponent<Amigos>().ReordenarPosicoes());
 			}
 
 

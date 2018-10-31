@@ -1281,8 +1281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf159ffec43ffc74d9a986dc1235930e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  min: -100
-  max: 100
+  min: 0
+  max: 0
 --- !u!114 &307234692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4359,7 +4359,7 @@ MonoBehaviour:
   - {fileID: 1791479979}
   - {fileID: 1730031816}
   - {fileID: 229995167}
-  chanceDeRodarEvento: 25.4
+  chanceDeRodarEvento: 10
   karmaText: {fileID: 307234689}
 --- !u!1 &1554269691
 GameObject:

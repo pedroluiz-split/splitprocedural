@@ -61,7 +61,7 @@ public class ControladorEventos : MonoBehaviour {
 	public void BotaoOnClick (int botaoNum)
 	{
 		paiEvento.SetActive(false);
-		Debug.Log("Botao clicado numero: "+botaoNum);
+		//Debug.Log("Botao clicado numero: "+botaoNum);
 		OldController.oldController.AdicionarTextoTimeLine(outcomes[botaoNum]);
 		//Fazer o efeito do botão escolhido
 		Fazer_Efeito(efeitos[botaoNum]);

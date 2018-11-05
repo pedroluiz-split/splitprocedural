@@ -15,6 +15,8 @@ public class OldController : MonoBehaviour {
 	public GameObject fadigaTimeline;
 	public GameObject fomeAvisoFab;
 	public GameObject fadigaAvisoFab;
+	public GameObject comidaText;
+	public GameObject comerButton;
 	public GameObject amigos;
 	public int spriteMaxDay = 0;
 	public int spriteAtual = 0;
@@ -34,6 +36,8 @@ public class OldController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		comerButton.GetComponent<Button>().onClick.AddListener(Comer);
+
 		viewportInicial = fomeTimeline.transform.parent.gameObject;
 		//coloca espaços no array de acordo com os filhos do personagem
 		personagens = new GameObject[transform.childCount];
@@ -51,12 +55,30 @@ public class OldController : MonoBehaviour {
 		fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA 1\n\nComeçou o apocalipse.";
 	}
 
+	public void AdicionarComida (int comida)
+	{
+		comidaText.GetComponent<Text>().text = "Comida: "+(int.Parse(comidaText.GetComponent<Text>().text.Replace("Comida: ","")) + comida);
+	}
+
+	public void Comer ()
+	{
+		if (fomeSlider.GetComponent<Slider> ().value > 0) {
+			if (int.Parse (comidaText.GetComponent<Text> ().text.Replace ("Comida: ", "")) < (amigos.transform.childCount - 1)) {
+				Debug.Log ("Comida Insuficiente");
+			} else {
+				Debug.Log ("Comeu");
+				comidaText.GetComponent<Text> ().text = "Comida: " + (int.Parse (comidaText.GetComponent<Text> ().text.Replace ("Comida: ", "")) - (amigos.transform.childCount - 1)).ToString ();
+				fomeSlider.GetComponent<Slider>().value = fomeSlider.GetComponent<Slider>().value - 0.2f;
+			}
+		}
+	}
+
 	public void AdicionarTextoTimeLine (string texto)
 	{
 		if (fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Contains ("DIA " + diasPassados))
 			fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Replace ("DIA " + diasPassados, "DIA " + diasPassados + "\n\n"+texto);
 		else
-				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA " + diasPassados + "\n\n"+texto+"\n\n" + fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text;
+			fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA " + diasPassados + "\n\n"+texto+"\n\n" + fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text;
 	}
 
 
@@ -129,7 +151,7 @@ public class OldController : MonoBehaviour {
 		//Roda a chance de perder um amigo
 		if (Random.Range (0, 10) > 7) {
 			//Correr pelos filhos de "Amigos" (sem contar o 0) e ver qual está ativo e desativar
-			for (int i = 1; i < amigos.transform.childCount; i++) {
+			for (int i = 2; i < amigos.transform.childCount; i++) {
 				//Caso o filho esteja ativado, desativá-lo
 				if (amigos.transform.GetChild (i).gameObject.activeSelf) {
 					listaAmigosAtivados.Add (amigos.transform.GetChild (i).gameObject);
@@ -141,7 +163,8 @@ public class OldController : MonoBehaviour {
 
 			//Veja se a lista de amigos ativados tem algum, e escolhe um aleatoriamente e desativa
 			if (listaAmigosAtivados.Count > 0) {
-				listaAmigosAtivados [Random.Range (0, listaAmigosAtivados.Count)].SetActive (false);
+				//listaAmigosAtivados [Random.Range (0, listaAmigosAtivados.Count)].SetActive (false);
+				Destroy(listaAmigosAtivados [Random.Range (0, listaAmigosAtivados.Count)].gameObject);
 				perdeu = true;
 
 				//Reordenar posições dos amigos
@@ -151,30 +174,13 @@ public class OldController : MonoBehaviour {
 		}
 
 		//Roda a chance de ganhar um amigo
-		if (Random.Range (0, 10) > 7) {
-			//Correr pelos filhos de "Amigos" (sem contar o 0) e ver qual está desativado e ativar
-			for (int i = 1; i < amigos.transform.childCount; i++) {
-				//Caso o filho esteja ativado, desativá-lo
-				if (!amigos.transform.GetChild (i).gameObject.activeSelf) {
-					listaAmigosDesativados.Add (amigos.transform.GetChild (i).gameObject);
-//					ganhou = true;
-//					amigos.transform.GetChild (i).gameObject.SetActive (true);
-//					i = amigos.transform.childCount;
-				}
+		if (Random.Range (0, 10) > 7) 
+		{
+			GameObject amigo = amigos.GetComponent<Amigos>().CriarAmigo();
+			ganhou = true;
 
-
-			}
-
-			if (listaAmigosDesativados.Count > 0) 
-			{
-				int amigoAleatorio = Random.Range(0, listaAmigosDesativados.Count);
-				listaAmigosDesativados[amigoAleatorio].SetActive(true);
-				listaAmigosDesativados[amigoAleatorio].GetComponent<Amigo>().EscolherTudo();
-				ganhou = true;
-
-				//Reordenar posições dos amigos
-				StartCoroutine(amigos.GetComponent<Amigos>().ReordenarPosicoes());
-			}
+			//Reordenar posições dos amigos
+			StartCoroutine(amigos.GetComponent<Amigos>().ReordenarPosicoes());
 
 
 		}
@@ -231,6 +237,9 @@ public class OldController : MonoBehaviour {
 		spriteAtual = 0;
 		spriteMaxDay = int.Parse(transform.GetChild(1).name.Replace("day",""));
 		personagens [spriteAtual].SetActive(true);
+
+		//Resetar a comida
+		comidaText.GetComponent<Text>().text = "Comida: 30";
 	}
 
 	public IEnumerator ResetarTimeline ()

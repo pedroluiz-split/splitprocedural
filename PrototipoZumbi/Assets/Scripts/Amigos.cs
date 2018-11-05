@@ -44,7 +44,7 @@ public class Amigos : MonoBehaviour
 	}
 
 	//Cria um novo amigo com atributos (inclusive imagem) aleatorios
-	public void CriarAmigo ()
+	public GameObject CriarAmigo ()
 	{
 		//Criar um prefab de um amigo novo
 		GameObject amigoNovo = Instantiate (amigoPrefab, this.transform);
@@ -65,6 +65,8 @@ public class Amigos : MonoBehaviour
 			amigoNovo.GetComponent<Amigo> ().personagemMasc = false;
 			amigoNovo.GetComponent<Amigo> ().EscolherTudo ();
 		}
+
+		return amigoNovo;
 	}
 
 	public void DestruirAmigos ()

@@ -9,6 +9,12 @@ public class Amigos : MonoBehaviour
 	public int limLinha;
 	public GameObject amigoPrefab;
 	public int limiteCriacaoAmigos;
+	public static Amigos amigos;
+
+	void Awake ()
+	{
+		amigos = this;
+	}
 
 	// Use this for initialization
 	void Start ()

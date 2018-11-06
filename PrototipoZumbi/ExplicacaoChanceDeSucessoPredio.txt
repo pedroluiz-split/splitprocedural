@@ -1,0 +1,8 @@
+chance de sucesso = qntZumbis - minZumbis(20) / maxZumbis(60) - minZumbis(20)
+quero saber: quantidade do desincremento de chance por cada zumbi
+valores de referencia: caso 5 amigos e 10 zumbis é 100%
+caso 3 amigos e 27 zumbis é 100 - 17,5 = 82,5
+o máximo que os amigos e você aguentam é 15 * 4 = 60 (a partir disso é 0% de chance). 20 teriam 100%. 40 seriam 50%. 50 seriam 25%. 30 seriam 75%. 21 97,5%
+influenciada por: quantidade máxima de zumbis (que por sua vez depende do tamanho dos prédios) e amigos
+Cada amigo consegue matar até 5 zumbis com certeza. A partir daí, há uma chance que vai caindo até chegar a 0% em 15 zumbis.
+Quanto menor a chance de sucesso, mais amigos morrerão.

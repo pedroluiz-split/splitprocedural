@@ -117,16 +117,19 @@ public class OldController : MonoBehaviour {
 		bool[] roleta = RoletaAmigos ();
 
 		if (roleta [1]) {
-			if (fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Contains ("DIA " + diasPassados))
-				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Replace ("DIA " + diasPassados, "DIA " + diasPassados + "\n\nPerdi um querido amigo...");
-			else
-				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA " + diasPassados + "\n\nPerdi um querido amigo...\n\n" + fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text;
+			AdicionarTextoTimeLine("Perdi um querido amigo de doença...");
+
+//			if (fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Contains ("DIA " + diasPassados))
+//				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Replace ("DIA " + diasPassados, "DIA " + diasPassados + "\n\nPerdi um querido amigo...");
+//			else
+//				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA " + diasPassados + "\n\nPerdi um querido amigo...\n\n" + fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text;
 		}
 		if (roleta [0]) {
-			if (fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Contains ("DIA " + diasPassados))
-				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Replace ("DIA " + diasPassados, "DIA " + diasPassados + "\n\nGanhei um amigo!");
-			else
-				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA " + diasPassados + "\n\nGanhei um amigo!\n\n" + fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text;
+			AdicionarTextoTimeLine("Apareceu um sobrevivente aqui no abrigo!");
+//			if (fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Contains ("DIA " + diasPassados))
+//				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Replace ("DIA " + diasPassados, "DIA " + diasPassados + "\n\nGanhei um amigo!");
+//			else
+//				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA " + diasPassados + "\n\nGanhei um amigo!\n\n" + fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text;
 		}
 
 		//Reseta caso fome ou fadiga estejam no maximo
@@ -186,6 +189,26 @@ public class OldController : MonoBehaviour {
 		}
 
 		return new bool[2]{ganhou,perdeu};
+	}
+
+	public void PerderAmigo (int qntAmigos)
+	{
+		if (amigos.transform.childCount > 2) {
+			if (qntAmigos == 1)
+				AdicionarTextoTimeLine ("Perdi um querido amigo na missão...");
+			else if (qntAmigos > 1) {
+				AdicionarTextoTimeLine ("Perdi "+ qntAmigos+" amigos na missão...");
+			}
+		}
+		
+		for (int i = 0; i < qntAmigos; i++) {
+			if (amigos.transform.childCount > 2) {
+				Destroy(amigos.transform.GetChild (Random.Range(2, amigos.transform.childCount)).gameObject);
+			}
+
+		}
+
+		StartCoroutine(amigos.GetComponent<Amigos> ().ReordenarPosicoes ());
 	}
 
 	public void MostrarAvisoFomeFadiga ()

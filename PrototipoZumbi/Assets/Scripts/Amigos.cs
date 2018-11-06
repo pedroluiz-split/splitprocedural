@@ -72,6 +72,8 @@ public class Amigos : MonoBehaviour
 			amigoNovo.GetComponent<Amigo> ().EscolherTudo ();
 		}
 
+		StartCoroutine(ReordenarPosicoes());
+
 		return amigoNovo;
 	}
 

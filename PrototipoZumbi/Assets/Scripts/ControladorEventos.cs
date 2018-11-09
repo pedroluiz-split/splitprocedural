@@ -69,11 +69,46 @@ public class ControladorEventos : MonoBehaviour {
 
 	public void Fazer_Efeito (string efeito)
 	{
-		if (efeito.Contains ("Karma")) 
-		{
-			karmaText.GetComponent<Text>().text = "Karma: "+(float.Parse(karmaText.GetComponent<Text>().text.Replace("Karma: ","")) + float.Parse(efeito.Split(new string[]{"|"},System.StringSplitOptions.None)[0].Replace("Karma","")) ).ToString();
+		if (efeito.Contains ("Karma")) {
+			karmaText.GetComponent<Text> ().text = "Karma: " + (float.Parse (karmaText.GetComponent<Text> ().text.Replace ("Karma: ", "")) + float.Parse (efeito.Split (new string[]{ "|" }, System.StringSplitOptions.None) [0].Replace ("Karma", ""))).ToString ();
+		}
+
+		if (efeito.Contains ("NovoAmigo")) {
+			if (efeito.ToLower ().Contains ("novoamigo(mulher)")) {
+				Amigos.amigos.CriarAmigo ("mulher");
+			} else if (efeito.ToLower ().Contains ("novoamigo(homem)")) {
+				Amigos.amigos.CriarAmigo ("homem");
+			} else
+				Amigos.amigos.CriarAmigo ();
+		}
+
+		if (efeito.Contains ("PerderAmigos")) {
+			string argsEfeitos = efeito.ToLower ().Split (new string[]{ "perderamigos(" }, System.StringSplitOptions.None) [1].Split (new string[]{ ")" }, System.StringSplitOptions.None) [0];
+			int qnt = int.Parse (argsEfeitos.Split (new string[]{ "," }, System.StringSplitOptions.None) [0]);
+			string sexo = argsEfeitos.Split (new string[]{ "," }, System.StringSplitOptions.None) [1];
+
+			Amigos.amigos.DestruirAmigos (qnt, sexo);
+		}
+
+		if (efeito.Contains ("GanharComida")) {
+			string argsEfeitos = efeito.ToLower().Split (new string[]{ "ganharcomida(" }, System.StringSplitOptions.None) [1].Split (new string[]{ ")" }, System.StringSplitOptions.None) [0];
+			int qnt = int.Parse (argsEfeitos);
+			OldController.oldController.AdicionarComida (qnt);
+		}
+
+		if (efeito.Contains ("PerderComida")) {
+			string argsEfeitos = efeito.ToLower().Split (new string[]{ "perdercomida(" }, System.StringSplitOptions.None) [1].Split (new string[]{ ")" }, System.StringSplitOptions.None) [0];
+			int qnt = int.Parse (argsEfeitos);
+			OldController.oldController.PerderComida (qnt);
+		}
+
+		if (efeito.Contains ("TrocarArma")) {
+			string argsEfeitos = efeito.ToLower().Split (new string[]{ "trocararma(" }, System.StringSplitOptions.None) [1].Split (new string[]{ ")" }, System.StringSplitOptions.None) [0];
+			OldController.oldController.TrocarArma(argsEfeitos[0].ToString().ToUpper() + argsEfeitos.Remove(0,1));
 		}
 	}
+
+
 
 	public void LancarEvento ()
 	{
@@ -81,19 +116,19 @@ public class ControladorEventos : MonoBehaviour {
 		//Escolher uma linha aleatória do arquivo Eventos.txt
 		textoEventoAleatorio = textoEventos[Random.Range(1,textoEventos.Length)];
 
-		descricaoEvento = textoEventoAleatorio.Split(new string[]{ ";" }, System.StringSplitOptions.None)[0];
+		descricaoEvento = textoEventoAleatorio.Split(new string[]{ "\n" }, System.StringSplitOptions.None)[0];
 
-		//Pegar o que é cada coisa daquela linha e colocar na devida variavel
-		textoBotoes = new string[textoEventoAleatorio.Split(new string[]{ ";" }, System.StringSplitOptions.None).Length-1];
-		outcomes = new string[textoEventoAleatorio.Split(new string[]{ ";" }, System.StringSplitOptions.None).Length-1];
-		efeitos = new string[textoEventoAleatorio.Split(new string[]{ ";" }, System.StringSplitOptions.None).Length-1];
+		//Cria um array de strings para armazenar os textos de cada variavel
+		textoBotoes = new string[textoEventoAleatorio.Split(new string[]{ "\n" }, System.StringSplitOptions.None).Length-1];
+		outcomes = new string[textoEventoAleatorio.Split(new string[]{ "\n" }, System.StringSplitOptions.None).Length-1];
+		efeitos = new string[textoEventoAleatorio.Split(new string[]{ "\n" }, System.StringSplitOptions.None).Length-1];
 
 		//Preencher as variaveis
-		for (int i = 1; i < textoEventoAleatorio.Split(new string[]{ ";" }, System.StringSplitOptions.None).Length; i++) 
+		for (int i = 1; i < textoBotoes.Length+1; i++) 
 		{
-			textoBotoes[i-1] = textoEventoAleatorio.Split(new string[]{ ";" }, System.StringSplitOptions.None)[i].Split(new string[]{ "," }, System.StringSplitOptions.None)[0];
-			outcomes[i-1] = textoEventoAleatorio.Split(new string[]{ ";" }, System.StringSplitOptions.None)[i].Split(new string[]{ "," }, System.StringSplitOptions.None)[1];
-			efeitos[i-1] = textoEventoAleatorio.Split(new string[]{ ";" }, System.StringSplitOptions.None)[i].Split(new string[]{ "," }, System.StringSplitOptions.None)[2];
+			textoBotoes[i-1] = textoEventoAleatorio.Split(new string[]{ "\n" }, System.StringSplitOptions.None)[i].Split(new string[]{ "$" }, System.StringSplitOptions.None)[0];
+			outcomes[i-1] = textoEventoAleatorio.Split(new string[]{ "\n" }, System.StringSplitOptions.None)[i].Split(new string[]{ "$" }, System.StringSplitOptions.None)[1];
+			efeitos[i-1] = textoEventoAleatorio.Split(new string[]{ "\n" }, System.StringSplitOptions.None)[i].Split(new string[]{ "$" }, System.StringSplitOptions.None)[2];
 		}
 
 		//Rodar o método para organizar a tela e ativar tudo
@@ -103,7 +138,19 @@ public class ControladorEventos : MonoBehaviour {
 	public void AcessarArquivo ()
 	{
 		//Separar os eventos e colocar no array de eventos
-		textoEventos = (Resources.Load ("Eventos") as TextAsset).text.Split (new string[]{ "\n" }, System.StringSplitOptions.None);
+		textoEventos = (Resources.Load ("Eventos") as TextAsset).text.Split (new string[]{ "==========================" }, System.StringSplitOptions.None);
+
+		//Tirar espaços iniciais e finais
+		for (int i = 1; i < textoEventos.Length; i++) {
+			if (textoEventos [i] != "" && textoEventos [i] != null) {
+				textoEventos[i] = textoEventos[i].Remove(0,2);
+				textoEventos[i] = textoEventos[i].Remove(textoEventos[i].Length-2,2);
+			}
+			else
+			{
+				System.Array.Resize(ref textoEventos,textoEventos.Length-1);
+			}
+		}
 
 	}
 

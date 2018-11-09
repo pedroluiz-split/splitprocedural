@@ -18,6 +18,7 @@ public class OldController : MonoBehaviour {
 	public GameObject comidaText;
 	public GameObject comerButton;
 	public GameObject amigos;
+	public GameObject armaText;
 	public int spriteMaxDay = 0;
 	public int spriteAtual = 0;
 	public float avisoFomeLim = 0.5f;
@@ -55,9 +56,23 @@ public class OldController : MonoBehaviour {
 		fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA 1\n\nComeçou o apocalipse.";
 	}
 
+	public void TrocarArma (string armaNova)
+	{
+		armaText.GetComponent<Text>().text = "Arma: "+armaNova;
+	}
+
 	public void AdicionarComida (int comida)
 	{
 		comidaText.GetComponent<Text>().text = "Comida: "+(int.Parse(comidaText.GetComponent<Text>().text.Replace("Comida: ","")) + comida);
+	}
+
+	public void PerderComida (int qnt)
+	{
+		if (int.Parse (comidaText.GetComponent<Text> ().text.Replace ("Comida: ", "")) - qnt < 0) {
+			comidaText.GetComponent<Text>().text = "Comida: 0";
+		}
+		else
+			comidaText.GetComponent<Text>().text = "Comida: "+(int.Parse(comidaText.GetComponent<Text>().text.Replace("Comida: ","")) - qnt);
 	}
 
 	public void Comer ()

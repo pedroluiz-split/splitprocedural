@@ -11,7 +11,7 @@ public class ListaStrings : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		textoOriginal = GetComponent<Text>().text;
-		MudarObjeto();
+		//MudarObjeto();
 	}
 
 	public void MudarObjeto ()

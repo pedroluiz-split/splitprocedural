@@ -36,7 +36,7 @@ public class Predio : MonoBehaviour {
 	void OnMouseDown ()
 	{
 		//Material material = new Material(GetComponent<MeshRenderer>().material);
-		AtualizarChanceSucesso();
+		AtualizarChanceSucesso ();
 		if (!jaEntrou) {
 			if (esperandoClique) {
 				EntrarPredio ();
@@ -52,8 +52,11 @@ public class Predio : MonoBehaviour {
 
 					//Set the main Color of the Material to green
 					//rend.material.shader = Shader.Find("_Color");
-					if (ultimoAtivo != null) {
-						ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
+					if (ultimoAtivo != null) 
+					{
+						if (!ultimoAtivo.GetComponent<Predio>().jaEntrou)
+							ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
+
 						ultimoAtivo.GetComponent<Predio> ().estaClicado = false;
 					}
 					GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
@@ -61,7 +64,9 @@ public class Predio : MonoBehaviour {
 					infoPredioObjeto.transform.parent.gameObject.SetActive (false);
 				} else {
 					if (ultimoAtivo != null) {
-						ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
+						if (!ultimoAtivo.GetComponent<Predio>().jaEntrou)
+							ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
+
 						ultimoAtivo.GetComponent<Predio> ().estaClicado = false;
 					}
 					ultimoAtivo = this.gameObject;
@@ -89,6 +94,25 @@ public class Predio : MonoBehaviour {
 					TrocarTextoDialogo ();
 					infoPredioObjeto.transform.parent.gameObject.SetActive (true);
 				}
+			}
+
+		} else 
+		{
+			if (estaClicado) 
+			{
+				estaClicado = false;
+				infoPredioObjeto.transform.parent.gameObject.SetActive (false);
+			} else {
+				if (ultimoAtivo != null) 
+				{
+					if (!ultimoAtivo.GetComponent<Predio>().jaEntrou)
+						ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
+					ultimoAtivo.GetComponent<Predio> ().estaClicado = false;
+				}
+				ultimoAtivo = this.gameObject;
+				estaClicado = true;
+				infoPredioObjeto.GetComponent<Text>().text = "Prédio "+ transform.name + "\n\nPrédio Conquistado!";
+				infoPredioObjeto.transform.parent.gameObject.SetActive (true);
 			}
 
 		}
@@ -134,7 +158,7 @@ public class Predio : MonoBehaviour {
 
 		estaClicado = false;
 		esperandoClique = false;
-		GetComponent<MeshRenderer>().material.SetColor("_Color", Color.black);
+		GetComponent<MeshRenderer>().material.SetColor("_Color", Color.green);
 		AtualizarChanceSucesso();
 		//Voltar para DeadBook
 		Camera.main.orthographic = false;

@@ -11,15 +11,38 @@ public class Amigo : MonoBehaviour {
 	public string nomeEscolhido;
 	public string profissaoEscolhida;
 	public string descricaoEscolhida;
+	public float [] listaHabilidades;		//Vai da ordem de 0 a 100
 	public GameObject telaAmigo;
 	private TextAsset nomeMascText;
 	private TextAsset nomeFemText;
 	public bool personagemMasc;
+	public static int amigoEscolhido;
 
 	// Use this for initialization
 	void Start ()
 	{
 		EscolherTudo();
+	}
+
+	public void EscolherHabilidades ()
+	{
+		listaHabilidades = new float[8];
+
+		for (int i = 0; i < listaHabilidades.Length; i++) {
+			if (i == 4) {
+				listaHabilidades [i] = 100 - listaHabilidades[0];
+			} else if (i == 6) {
+				listaHabilidades [i] = 100 - listaHabilidades[2];
+			}
+			else
+				listaHabilidades[i] = Random.Range(0,100);
+		}
+	}
+
+	public void MandarEmbora ()
+	{
+		transform.parent = transform.parent.parent;
+		Destroy(this.gameObject);
 	}
 	
 	public void EscolherNome ()
@@ -51,15 +74,19 @@ public class Amigo : MonoBehaviour {
 		EscolherNome();
 		EscolherProfissao();
 		EscolherDescricao();
+		EscolherHabilidades();
 	}
 
 	void OnMouseDown()
     {
         Debug.Log("Clicou no amigo " + nomeEscolhido);
+        amigoEscolhido = transform.GetSiblingIndex();
+        Amigos.amigos.AtualizarRadar(listaHabilidades);
         telaAmigo.SetActive(true);
         telaAmigo.transform.GetChild(0).GetComponent<Image>().sprite = GetComponent<SpriteRenderer>().sprite;
 		telaAmigo.transform.GetChild(1).GetComponent<Text>().text = "Nome: "+ nomeEscolhido;
 		telaAmigo.transform.GetChild(2).GetComponent<Text>().text = "Profissão: "+ profissaoEscolhida;
 		telaAmigo.transform.GetChild(3).GetComponent<Text>().text = "Descrição: "+ descricaoEscolhida;
+		transform.parent.parent.gameObject.SetActive(false);
     }
 }

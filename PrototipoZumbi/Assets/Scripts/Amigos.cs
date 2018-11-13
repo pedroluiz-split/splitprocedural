@@ -12,6 +12,7 @@ public class Amigos : MonoBehaviour
 	public int limiteCriacaoAmigos;
 	public static Amigos amigos;
 	public GameObject texto;
+	public GameObject graficoRadar;
 
 	void Awake ()
 	{
@@ -31,12 +32,34 @@ public class Amigos : MonoBehaviour
 		//OrganizarPredios();
 		CriarAmigos();
 
+		//StartCoroutine(AtualizarLista());
+	}
 
+
+	public IEnumerator AtualizarLista ()
+	{
+		StartCoroutine(ReordenarPosicoes());
+		yield return new WaitForSeconds(0.05f);
+
+		StartCoroutine(AtualizarLista());
+	}
+
+	public void MandarAmigoEmbora ()
+	{
+		transform.GetChild(Amigo.amigoEscolhido).GetComponent<Amigo>().MandarEmbora();
+		StartCoroutine(ReordenarPosicoes());
+	}
+
+	public void AtualizarRadar (float [] habilidades)
+	{
+		graficoRadar.GetComponent<RadarGraph>().habilidades = habilidades;
+		graficoRadar.GetComponent<RadarGraph>().DebugDrawPolygon(graficoRadar.GetComponent<RadarGraph>().posicaoInicial,graficoRadar.GetComponent<RadarGraph>().raio,graficoRadar.GetComponent<RadarGraph>().qntItens);
 	}
 
 	void Update ()
 	{
 		AtualizarTexto();
+		StartCoroutine(ReordenarPosicoes());
 	}
 
 	public void AtualizarTexto ()

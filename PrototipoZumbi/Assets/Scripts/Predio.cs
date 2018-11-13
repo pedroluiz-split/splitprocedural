@@ -164,6 +164,7 @@ public class Predio : MonoBehaviour {
 		Camera.main.orthographic = false;
 		group.SetActive(false);
 
+
 	}
 
 	void TrocarTextoDialogo()

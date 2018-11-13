@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\OldController.cs" />
      <Compile Include="Assets\Scripts\Personalidade.cs" />
      <Compile Include="Assets\Scripts\Predio.cs" />
+     <Compile Include="Assets\Scripts\RadarGraph.cs" />
      <Compile Include="Assets\Scripts\RandomNumber.cs" />
      <Compile Include="Assets\Scripts\Secret.cs" />
      <None Include="Assets\Resources\NomesMasculinos.txt" />

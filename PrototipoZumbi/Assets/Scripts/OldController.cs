@@ -19,6 +19,8 @@ public class OldController : MonoBehaviour {
 	public GameObject comerButton;
 	public GameObject amigos;
 	public GameObject armaText;
+	public GameObject graficoRadar;
+	public float [] listaHabilidades;
 	public int spriteMaxDay = 0;
 	public int spriteAtual = 0;
 	public float avisoFomeLim = 0.5f;
@@ -54,6 +56,29 @@ public class OldController : MonoBehaviour {
 		spriteMaxDay = int.Parse(transform.GetChild(1).name.Replace("day",""));
 
 		fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA 1\n\nComeçou o apocalipse.";
+
+		EscolherHabilidades();
+	}
+
+	public void AtualizarRadar ()
+	{
+		graficoRadar.GetComponent<RadarGraph>().habilidades = listaHabilidades;
+		graficoRadar.GetComponent<RadarGraph>().DebugDrawPolygon(graficoRadar.GetComponent<RadarGraph>().posicaoInicial,graficoRadar.GetComponent<RadarGraph>().raio,graficoRadar.GetComponent<RadarGraph>().qntItens);
+	}
+
+	public void EscolherHabilidades()
+	{
+		listaHabilidades = new float[8];
+
+		for (int i = 0; i < listaHabilidades.Length; i++) {
+			if (i == 4) {
+				listaHabilidades [i] = 100 - listaHabilidades[0];
+			} else if (i == 6) {
+				listaHabilidades [i] = 100 - listaHabilidades[2];
+			}
+			else
+				listaHabilidades[i] = Random.Range(0,100);
+		}
 	}
 
 	public void TrocarArma (string armaNova)

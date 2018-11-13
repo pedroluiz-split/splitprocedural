@@ -70,7 +70,20 @@ public class ControladorEventos : MonoBehaviour {
 	public void Fazer_Efeito (string efeito)
 	{
 		if (efeito.Contains ("Karma")) {
-			karmaText.GetComponent<Text> ().text = "Karma: " + (float.Parse (karmaText.GetComponent<Text> ().text.Replace ("Karma: ", "")) + float.Parse (efeito.Split (new string[]{ "|" }, System.StringSplitOptions.None) [0].Replace ("Karma", ""))).ToString ();
+			//karmaText.GetComponent<Text> ().text = "Karma: " + (float.Parse (karmaText.GetComponent<Text> ().text.Replace ("Karma: ", "")) + float.Parse (efeito.Split (new string[]{ "|" }, System.StringSplitOptions.None) [0].Replace ("Karma", ""))).ToString ();
+			float efeitoKarma = 0;
+
+
+			string[] efeitos = efeito.ToLower ().Split (new string[]{ "|" }, System.StringSplitOptions.None);
+			for (int i = 0; i < efeitos.Length; i++) {
+				if (efeitos [i].Contains ("karma")) {
+					efeitoKarma = float.Parse(efeitos[i].Replace("karma",""));
+				}
+			}
+
+			efeitoKarma = float.Parse (karmaText.GetComponent<Text> ().text.Replace ("Karma: ", "")) + efeitoKarma;
+
+			karmaText.GetComponent<Text> ().text = "Karma: " + efeitoKarma;
 		}
 
 		if (efeito.Contains ("NovoAmigo")) {
@@ -104,11 +117,35 @@ public class ControladorEventos : MonoBehaviour {
 
 		if (efeito.Contains ("TrocarArma")) {
 			string argsEfeitos = efeito.ToLower().Split (new string[]{ "trocararma(" }, System.StringSplitOptions.None) [1].Split (new string[]{ ")" }, System.StringSplitOptions.None) [0];
-			OldController.oldController.TrocarArma(argsEfeitos[0].ToString().ToUpper() + argsEfeitos.Remove(0,1));
+			OldController.oldController.TrocarArma(argsEfeitos.Substring(0,1).ToUpper() + argsEfeitos.Remove(0,1));
+		}
+
+		if (efeito.Contains ("AlterarHabilidadePlayer")) {
+			string argsEfeitos = efeito.ToLower().Split (new string[]{ "alterarhabilidadeplayer(" }, System.StringSplitOptions.None) [1].Split (new string[]{ ")" }, System.StringSplitOptions.None) [0];
+			AlterarHabilidadePlayer(int.Parse(argsEfeitos.Split(new string[]{","}, System.StringSplitOptions.None)[0]), float.Parse(argsEfeitos.Split(new string[]{","}, System.StringSplitOptions.None)[1]));
 		}
 	}
 
+	public void AlterarHabilidadePlayer (int item, float value)
+	{
+		if (item == 0) {
+			OldController.oldController.listaHabilidades[item] += value;
+			OldController.oldController.listaHabilidades[4] -= value;
+		} else if (item == 2) {
+			OldController.oldController.listaHabilidades[item] += value;
+			OldController.oldController.listaHabilidades[6] -= value;
+		} else if (item == 4) {
+			OldController.oldController.listaHabilidades[item] += value;
+			OldController.oldController.listaHabilidades[0] -= value;
+		} else if (item == 6) {
+			OldController.oldController.listaHabilidades[item] += value;
+			OldController.oldController.listaHabilidades[2] -= value;
+		}
+		else
+			OldController.oldController.listaHabilidades[item] += value;
 
+		OldController.oldController.AtualizarRadar();
+	}
 
 	public void LancarEvento ()
 	{

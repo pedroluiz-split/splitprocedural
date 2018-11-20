@@ -122,7 +122,8 @@ public class ControladorEventos : MonoBehaviour {
 
 		if (efeito.Contains ("AlterarHabilidadePlayer")) {
 			string argsEfeitos = efeito.ToLower().Split (new string[]{ "alterarhabilidadeplayer(" }, System.StringSplitOptions.None) [1].Split (new string[]{ ")" }, System.StringSplitOptions.None) [0];
-			AlterarHabilidadePlayer(int.Parse(argsEfeitos.Split(new string[]{","}, System.StringSplitOptions.None)[0]), float.Parse(argsEfeitos.Split(new string[]{","}, System.StringSplitOptions.None)[1]));
+			//AlterarHabilidadePlayer(int.Parse(argsEfeitos.Split(new string[]{","}, System.StringSplitOptions.None)[0]), float.Parse(argsEfeitos.Split(new string[]{","}, System.StringSplitOptions.None)[1]));
+			AlterarHabilidadePlayer(argsEfeitos.Split(new string[]{";"}, System.StringSplitOptions.None));
 		}
 	}
 
@@ -143,6 +144,65 @@ public class ControladorEventos : MonoBehaviour {
 		}
 		else
 			OldController.oldController.listaHabilidades[item] += value;
+
+		//Limitar a no maximo 100 e minimo 0
+		if (OldController.oldController.listaHabilidades[item] > 100)
+			OldController.oldController.listaHabilidades[item] = 100;
+		else if (OldController.oldController.listaHabilidades[item] < 0)
+			OldController.oldController.listaHabilidades[item] = 0;
+		OldController.oldController.AtualizarRadar();
+	}
+
+	public void AlterarHabilidadePlayer (string[] itens)
+	{
+		int[] itensIndices = new int[itens.Length];
+		float[] values = new float[itens.Length];
+
+		for (int i = 0; i < itens.Length; i++) {
+			itensIndices [i] = int.Parse(itens [i].Split (new string[]{ "," }, System.StringSplitOptions.None) [0]);
+			values [i] = float.Parse(itens [i].Split (new string[]{ "," }, System.StringSplitOptions.None) [1]);
+
+			if (itensIndices [i] == 0) {
+				if (OldController.oldController.listaHabilidades [itensIndices [i]] + values [i] < 100) {
+					OldController.oldController.listaHabilidades [itensIndices [i]] += values [i];
+					OldController.oldController.listaHabilidades [4] -= values [i];
+				} else {
+					OldController.oldController.listaHabilidades [itensIndices [i]] = 100;
+					OldController.oldController.listaHabilidades [4] = 0;
+				}
+
+			} else if (itensIndices [i] == 2) {
+				if (OldController.oldController.listaHabilidades [itensIndices [i]] + values [i] < 100) {
+					OldController.oldController.listaHabilidades [itensIndices [i]] += values [i];
+					OldController.oldController.listaHabilidades [6] -= values [i];
+				} else {
+					OldController.oldController.listaHabilidades [itensIndices [i]] = 100;
+					OldController.oldController.listaHabilidades [6] = 0;
+				}
+			} else if (itensIndices [i] == 4) {
+				if (OldController.oldController.listaHabilidades [itensIndices [i]] + values [i] < 100) {
+					OldController.oldController.listaHabilidades [itensIndices [i]] += values [i];
+					OldController.oldController.listaHabilidades [0] -= values [i];
+				}else {
+					OldController.oldController.listaHabilidades [itensIndices [i]] = 100;
+					OldController.oldController.listaHabilidades [0] = 0;
+				}
+			} else if (itensIndices [i] == 6) {
+				if (OldController.oldController.listaHabilidades [itensIndices [i]] + values [i] < 100) {
+					OldController.oldController.listaHabilidades [itensIndices [i]] += values [i];
+					OldController.oldController.listaHabilidades [2] -= values [i];
+				}else {
+					OldController.oldController.listaHabilidades [itensIndices [i]] = 100;
+					OldController.oldController.listaHabilidades [2] = 0;
+				}
+			}
+			else
+				if (OldController.oldController.listaHabilidades[itensIndices [i]] + values[i] < 100)
+					OldController.oldController.listaHabilidades[itensIndices [i]] += values[i];
+				else
+					OldController.oldController.listaHabilidades[itensIndices [i]] = 100;
+		}
+
 
 		OldController.oldController.AtualizarRadar();
 	}

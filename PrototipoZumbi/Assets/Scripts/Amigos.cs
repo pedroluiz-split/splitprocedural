@@ -16,7 +16,10 @@ public class Amigos : MonoBehaviour
 
 	void Awake ()
 	{
-		amigos = this;
+		if (amigos == null)
+			amigos = this;
+		else
+			amigos.GetComponent<Amigos>().enabled = false;
 	}
 
 	// Use this for initialization

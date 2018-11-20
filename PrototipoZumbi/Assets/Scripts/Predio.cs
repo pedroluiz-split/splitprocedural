@@ -16,7 +16,7 @@ public class Predio : MonoBehaviour {
 	public GameObject deadbook;
 	public int qntComida;
 	private static GameObject ultimoAtivo;
-	private float volumeObjeto;
+	public float volumeObjeto;
 	public bool jaEntrou = false;
 	[Range(0,100)]
 	public float chanceDeSucesso;
@@ -24,9 +24,11 @@ public class Predio : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//infoPredioObjeto = transform.parent.parent.transform.transform.GetChild(0).GetChild(0).gameObject;
-		group = transform.parent.parent.gameObject;
-		infoPredioObjeto.GetComponent<Text>().text = group.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Text>().text;
-		volumeObjeto = GetComponent<MeshRenderer>().bounds.size.x*GetComponent<MeshRenderer>().bounds.size.y*GetComponent<MeshRenderer>().bounds.size.z;
+		group = transform.parent.parent.parent.parent.gameObject;
+		infoPredioObjeto.GetComponent<Text>().text = group.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text;
+		group.transform.GetChild(0).localScale = new Vector3(1,1,1);
+		volumeObjeto = GetComponent<MeshRenderer>().bounds.size.x*GetComponent<MeshRenderer>().bounds.size.y*GetComponent<MeshRenderer>().bounds.size.z*2000;
+		Debug.Log(volumeObjeto+ "Predio"+transform.name);
 		qntZumbis = Random.Range(1,(int)volumeObjeto);
 		qntComida = Random.Range(1,(int)volumeObjeto/10);
 		qntSobreviventes = Random.Range(1,(int)volumeObjeto/20);

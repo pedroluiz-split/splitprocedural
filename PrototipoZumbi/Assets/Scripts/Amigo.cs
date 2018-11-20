@@ -22,6 +22,7 @@ public class Amigo : MonoBehaviour {
 	void Start ()
 	{
 		EscolherTudo();
+		transform.name = transform.name.Replace("1(Clone)",transform.GetSiblingIndex().ToString());
 	}
 
 	public void EscolherHabilidades ()
@@ -77,16 +78,25 @@ public class Amigo : MonoBehaviour {
 		EscolherHabilidades();
 	}
 
-	void OnMouseDown()
-    {
-        Debug.Log("Clicou no amigo " + nomeEscolhido);
-        amigoEscolhido = transform.GetSiblingIndex();
-        Amigos.amigos.AtualizarRadar(listaHabilidades);
-        telaAmigo.SetActive(true);
-        telaAmigo.transform.GetChild(0).GetComponent<Image>().sprite = GetComponent<SpriteRenderer>().sprite;
-		telaAmigo.transform.GetChild(1).GetComponent<Text>().text = "Nome: "+ nomeEscolhido;
-		telaAmigo.transform.GetChild(2).GetComponent<Text>().text = "Profissão: "+ profissaoEscolhida;
-		telaAmigo.transform.GetChild(3).GetComponent<Text>().text = "Descrição: "+ descricaoEscolhida;
-		transform.parent.parent.gameObject.SetActive(false);
+	void OnMouseDown ()
+	{
+		if (transform.parent.parent != null) {
+			Debug.Log ("Clicou no amigo " + nomeEscolhido);
+			amigoEscolhido = transform.GetSiblingIndex ();
+			Amigos.amigos.AtualizarRadar (listaHabilidades);
+			telaAmigo.SetActive (true);
+			telaAmigo.transform.GetChild (0).GetComponent<Image> ().sprite = GetComponent<SpriteRenderer> ().sprite;
+			telaAmigo.transform.GetChild (1).GetComponent<Text> ().text = "Nome: " + nomeEscolhido;
+			telaAmigo.transform.GetChild (2).GetComponent<Text> ().text = "Profissão: " + profissaoEscolhida;
+			telaAmigo.transform.GetChild (3).GetComponent<Text> ().text = "Descrição: " + descricaoEscolhida;
+			transform.parent.parent.gameObject.SetActive (false);
+		} else {
+			amigoEscolhido = transform.GetSiblingIndex ();
+			Debug.Log("Amigo "+amigoEscolhido);
+			ListaPersonagens.listaPersonagens.TrocarImagemBotao(amigoEscolhido);
+			ListaPersonagens.listaPersonagens.transform.parent.GetChild(0).gameObject.SetActive(true);
+			ListaPersonagens.listaPersonagens.gameObject.SetActive(false);
+			Destroy(transform.parent.gameObject);
+		}
     }
 }

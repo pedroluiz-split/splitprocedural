@@ -71,13 +71,10 @@ public class OldController : MonoBehaviour {
 		listaHabilidades = new float[8];
 
 		for (int i = 0; i < listaHabilidades.Length; i++) {
-			if (i == 4) {
-				listaHabilidades [i] = 100 - listaHabilidades[0];
-			} else if (i == 6) {
-				listaHabilidades [i] = 100 - listaHabilidades[2];
-			}
+			if (i == 0 || i == 2 || i == 4 || i == 6)
+				listaHabilidades[i] = 50;
 			else
-				listaHabilidades[i] = Random.Range(0,100);
+				listaHabilidades[i] = 10;
 		}
 	}
 

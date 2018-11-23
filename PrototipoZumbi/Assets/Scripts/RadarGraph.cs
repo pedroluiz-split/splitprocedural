@@ -20,7 +20,6 @@ public class RadarGraph : MonoBehaviour {
 		DebugDrawPolygon(posicaoInicial, raio, qntItens);
 		//Teste();
 		//mesh.SetColors(new List<Color>(4){Color.blue,Color.blue,Color.blue,Color.blue});
-		transform.position = new Vector3 (0,0,0);
 	}
 
 

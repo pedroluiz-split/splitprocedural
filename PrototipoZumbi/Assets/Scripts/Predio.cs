@@ -15,7 +15,7 @@ public class Predio : MonoBehaviour {
 	private Text dialogo;
 	public GameObject deadbook;
 	public int qntComida;
-	private static GameObject ultimoAtivo;
+	public static GameObject ultimoAtivo;
 	public float volumeObjeto;
 	public bool jaEntrou = false;
 	[Range(0,100)]
@@ -25,7 +25,7 @@ public class Predio : MonoBehaviour {
 	void Start () {
 		//infoPredioObjeto = transform.parent.parent.transform.transform.GetChild(0).GetChild(0).gameObject;
 		group = transform.parent.parent.parent.parent.gameObject;
-		infoPredioObjeto.GetComponent<Text>().text = group.transform.GetChild(0).GetChild(0).GetChild(0).GetChild(0).GetComponent<Text>().text;
+		infoPredioObjeto.GetComponent<Text>().text = group.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<Text>().text;
 		group.transform.GetChild(0).localScale = new Vector3(1,1,1);
 		volumeObjeto = GetComponent<MeshRenderer>().bounds.size.x*GetComponent<MeshRenderer>().bounds.size.y*GetComponent<MeshRenderer>().bounds.size.z*2000;
 		Debug.Log(volumeObjeto+ "Predio"+transform.name);
@@ -41,19 +41,12 @@ public class Predio : MonoBehaviour {
 		AtualizarChanceSucesso ();
 		if (!jaEntrou) {
 			if (esperandoClique) {
-				EntrarPredio ();
+				//EntrarPredio ();
 			} else {
 				if (estaClicado) {
 					estaClicado = false;
-//				//material.SetColor("_EmissionColor", Color.black);
-//				material.SetColor("_MainTexture", Color.black);
-//				GetComponent<MeshRenderer>().material = material;
 
-					//Fetch the Renderer from the GameObject
-					//MeshRenderer rend = GetComponent<MeshRenderer>();
-
-					//Set the main Color of the Material to green
-					//rend.material.shader = Shader.Find("_Color");
+					//Desabilita o ultimo predio ativo
 					if (ultimoAtivo != null) 
 					{
 						if (!ultimoAtivo.GetComponent<Predio>().jaEntrou)
@@ -64,6 +57,7 @@ public class Predio : MonoBehaviour {
 					GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
 
 					infoPredioObjeto.transform.parent.gameObject.SetActive (false);
+					ListaPersonagens.listaPersonagens.AtivarColliderPredios();
 				} else {
 					if (ultimoAtivo != null) {
 						if (!ultimoAtivo.GetComponent<Predio>().jaEntrou)
@@ -95,6 +89,7 @@ public class Predio : MonoBehaviour {
 					//GetComponent<MeshRenderer>().material.
 					TrocarTextoDialogo ();
 					infoPredioObjeto.transform.parent.gameObject.SetActive (true);
+					ListaPersonagens.listaPersonagens.DesativarColliderPredios(this.name);
 				}
 			}
 
@@ -133,7 +128,7 @@ public class Predio : MonoBehaviour {
 			chanceDeSucesso = 100;
 	}
 
-    void EntrarPredio ()
+    public void EntrarPredio ()
 	{
 		jaEntrou = true;
 		ultimoAtivo = null;

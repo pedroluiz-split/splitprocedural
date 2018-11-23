@@ -98,8 +98,9 @@ public class Amigos : MonoBehaviour
 	{
 		
 		if (transform.childCount - 2 < limiteCriacaoAmigos) {
+
 			//Criar um prefab de um amigo novo
-			GameObject amigoNovo = Instantiate (amigoPrefab, this.transform);
+			GameObject amigoNovo = Instantiate(amigoPrefab, new Vector3(),transform.rotation,this.transform);
 			amigoNovo.SetActive (true);
 
 			//Pegar Imagem aleatoria de amigo na pasta Resources/Amigos e colocar no amigo

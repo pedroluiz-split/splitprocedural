@@ -11,18 +11,32 @@ public class Predio : MonoBehaviour {
 	public int qntComidas;
 	public int qntSobreviventes;
 	private bool esperandoClique = false;
-	private GameObject group;
+	public GameObject group;
 	private Text dialogo;
 	public GameObject deadbook;
 	public int qntComida;
 	public static GameObject ultimoAtivo;
+	public GameObject amigos;
 	public float volumeObjeto;
 	public bool jaEntrou = false;
 	[Range(0,100)]
 	public float chanceDeSucesso;
+	public int combateTotal;
+	public Predio predio;
+	private string infos;
+
+	void Awake ()
+	{
+		predio = this.GetComponent<Predio>();
+		group = GameObject.Find("Group");
+	}
+
 
 	// Use this for initialization
 	void Start () {
+		
+		predio = this;
+		group.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0);
 		//infoPredioObjeto = transform.parent.parent.transform.transform.GetChild(0).GetChild(0).gameObject;
 		group = transform.parent.parent.parent.parent.gameObject;
 		infoPredioObjeto.GetComponent<Text>().text = group.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<Text>().text;
@@ -32,69 +46,74 @@ public class Predio : MonoBehaviour {
 		qntZumbis = Random.Range(1,(int)volumeObjeto);
 		qntComida = Random.Range(1,(int)volumeObjeto/10);
 		qntSobreviventes = Random.Range(1,(int)volumeObjeto/20);
+
+		infos = AtualizarTextoChance();
+		Debug.Log(infos);
 		AtualizarChanceSucesso();
 	}
 
 	void OnMouseDown ()
 	{
 		//Material material = new Material(GetComponent<MeshRenderer>().material);
+		infos = AtualizarTextoChance();
+		AtualizarTextoChance();
 		AtualizarChanceSucesso ();
 		if (!jaEntrou) {
 			if (esperandoClique) {
 				//EntrarPredio ();
-			} else {
-				if (estaClicado) {
-					estaClicado = false;
+			} else if (estaClicado) 
+			{
+				estaClicado = false;
 
-					//Desabilita o ultimo predio ativo
-					if (ultimoAtivo != null) 
-					{
-						if (!ultimoAtivo.GetComponent<Predio>().jaEntrou)
-							ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
+				//Desabilita o ultimo predio ativo
+				if (ultimoAtivo != null) 
+				{
+					if (!ultimoAtivo.GetComponent<Predio> ().jaEntrou)
+						ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
 
-						ultimoAtivo.GetComponent<Predio> ().estaClicado = false;
-					}
-					GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
-
-					infoPredioObjeto.transform.parent.gameObject.SetActive (false);
-					ListaPersonagens.listaPersonagens.AtivarColliderPredios();
-				} else {
-					if (ultimoAtivo != null) {
-						if (!ultimoAtivo.GetComponent<Predio>().jaEntrou)
-							ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
-
-						ultimoAtivo.GetComponent<Predio> ().estaClicado = false;
-					}
-					ultimoAtivo = this.gameObject;
-					estaClicado = true;
-					StartCoroutine (EsperarClique ());
-					//GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.white);
-//				material.SetColor("_MainTexture", Color.red);
-//				GetComponent<MeshRenderer>().material = material;
-
-					//Fetch the Renderer from the GameObject
-					//MeshRenderer rend = GetComponent<MeshRenderer>();
-					//rend.material.shader = Shader.Find("_Color");
-					GetComponent<MeshRenderer> ().material.SetColor ("_Color", new Color (1f, 0f, 0f));
-
-					//Set the main Color of the Material to green
-//		        rend.material.shader = Shader.Find("_Color");
-//		        rend.material.SetColor("_Color", Color.red);
-//
-//		        //Find the Specular shader and change its Color to red
-//		        rend.material.shader = Shader.Find("Specular");
-//		        rend.material.SetColor("_SpecColor", Color.white);
-
-					//GetComponent<MeshRenderer>().
-					//GetComponent<MeshRenderer>().material.
-					TrocarTextoDialogo ();
-					infoPredioObjeto.transform.parent.gameObject.SetActive (true);
-					ListaPersonagens.listaPersonagens.DesativarColliderPredios(this.name);
+					ultimoAtivo.GetComponent<Predio> ().estaClicado = false;
 				}
-			}
+				GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
 
-		} else 
+				infoPredioObjeto.transform.parent.gameObject.SetActive (false);
+				ListaPersonagens.listaPersonagens.AtivarColliderPredios ();
+			} else 
+			{
+				if (ultimoAtivo != null) {
+					if (!ultimoAtivo.GetComponent<Predio> ().jaEntrou)
+						ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
+
+					ultimoAtivo.GetComponent<Predio> ().estaClicado = false;
+				}
+				ultimoAtivo = this.gameObject;
+				estaClicado = true;
+				StartCoroutine (EsperarClique ());
+				//GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", Color.white);
+				//				material.SetColor("_MainTexture", Color.red);
+				//				GetComponent<MeshRenderer>().material = material;
+
+				//Fetch the Renderer from the GameObject
+				//MeshRenderer rend = GetComponent<MeshRenderer>();
+				//rend.material.shader = Shader.Find("_Color");
+				GetComponent<MeshRenderer> ().material.SetColor ("_Color", new Color (1f, 0f, 0f));
+
+				//Set the main Color of the Material to green
+				//		        rend.material.shader = Shader.Find("_Color");
+				//		        rend.material.SetColor("_Color", Color.red);
+				//
+				//		        //Find the Specular shader and change its Color to red
+				//		        rend.material.shader = Shader.Find("Specular");
+				//		        rend.material.SetColor("_SpecColor", Color.white);
+
+				//GetComponent<MeshRenderer>().
+				//GetComponent<MeshRenderer>().material.
+				TrocarTextoDialogo ();
+				infoPredioObjeto.transform.parent.gameObject.SetActive (true);
+				ListaPersonagens.listaPersonagens.DesativarColliderPredios (this.name);
+			}
+		}else
 		{
+
 			if (estaClicado) 
 			{
 				estaClicado = false;
@@ -115,7 +134,25 @@ public class Predio : MonoBehaviour {
 		}
     }
 
-    public void AtualizarChanceSucesso ()
+    public float AtualizarChanceSucesso ()
+	{
+//		
+		combateTotal = 0;
+		for (int i = 0; i < Amigos.amigos.transform.childCount - 2; i++) {
+			if (Amigos.amigos.amigosGobj.Length  > i) {
+				if (Amigos.amigos.amigosGobj [i].name.EndsWith ("$")) {
+					combateTotal += (int)(Amigos.amigos.amigosGobj [i].GetComponent<Amigo> ().listaHabilidades [5]);
+					Debug.Log ("Total Combate: " + combateTotal);
+				}
+			}
+		}
+
+		float chanceSucesso = combateTotal/qntZumbis;
+
+		return chanceSucesso;
+	}
+
+	public float ChanceSucesso ()
 	{
 		float maxZumbis, minZumbis;
 		minZumbis = (Amigos.amigos.transform.childCount-1)*5;
@@ -126,6 +163,8 @@ public class Predio : MonoBehaviour {
 			chanceDeSucesso = 0;
 		else if (chanceDeSucesso > 100)
 			chanceDeSucesso = 100;
+
+		return chanceDeSucesso;
 	}
 
     public void EntrarPredio ()
@@ -143,12 +182,13 @@ public class Predio : MonoBehaviour {
 		OldController.oldController.AdicionarDias ();
 
 		if (chanceDeSucesso < 100) {
-			OldController.oldController.PerderAmigo((int)((100-chanceDeSucesso)/100f*(Amigos.amigos.transform.childCount-2)));
-		}
+			//OldController.oldController.PerderAmigo((int)((100-chanceDeSucesso)/100f*(Amigos.amigos.transform.childCount-2)));
 
+		}
+		List<GameObject> amigosMissao = new List<GameObject>();
 		for (int i = 0; i < qntSobreviventes; i++) 
 		{
-			Amigos.amigos.CriarAmigo ();
+			amigosMissao.Add(Amigos.amigos.CriarAmigo ());
 		}
 
 		OldController.oldController.AdicionarTextoTimeLine("Encontramos " + ((qntSobreviventes>1)?qntSobreviventes+" sobreviventes":"um sobrevivente") + " no local...");
@@ -161,7 +201,23 @@ public class Predio : MonoBehaviour {
 		Camera.main.orthographic = false;
 		group.SetActive(false);
 
+		Amigos.amigos.ReordenarPosicoes();
 
+	}
+
+	public string AtualizarTextoChance ()
+	{
+//		if (infos != null) {
+//			int removerAleatorio = (int)Random.Range (0, chanceDeSucesso * combateTotal);
+//		if (infos.Length > 6 || infos == null)
+//			infos = (float.Parse(dialogo.text.Remove (dialogo.text.Length, 4)) * chanceDeSucesso).ToString ();
+//		infos = AtualizarTextoChance ();
+//		}
+//		else
+//			infos = "";
+		
+	
+		return infos;
 	}
 
 	void TrocarTextoDialogo()

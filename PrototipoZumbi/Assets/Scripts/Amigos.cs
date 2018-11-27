@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Amigos : MonoBehaviour 
 {
-	public GameObject [] predios;
+	public GameObject [] amigosGobj;
 	public Vector2 posicaoInicial;
 	public int limLinha;
 	public GameObject amigoPrefab;
@@ -20,20 +20,24 @@ public class Amigos : MonoBehaviour
 			amigos = this;
 		else
 			amigos.GetComponent<Amigos>().enabled = false;
+			GameObject amigoOriginal = null;
+			//amigoNovo = null;
 	}
 
 	// Use this for initialization
 	void Start ()
 	{
-		predios = new GameObject[transform.childCount];
+		amigosGobj = new GameObject[transform.childCount];
 		for (int i = 0; i < transform.childCount; i++)
 		{
-			predios[i] = transform.GetChild(i).gameObject;
+			amigosGobj[i] = transform.GetChild(i).gameObject;
 		}
 		posicaoInicial = transform.GetChild(0).transform.position;
 
 		//OrganizarPredios();
 		CriarAmigos();
+
+		StartCoroutine(ReordenarPosicoes());
 
 		//StartCoroutine(AtualizarLista());
 	}
@@ -62,7 +66,7 @@ public class Amigos : MonoBehaviour
 	void Update ()
 	{
 		AtualizarTexto();
-		StartCoroutine(ReordenarPosicoes());
+
 	}
 
 	public void AtualizarTexto ()
@@ -96,105 +100,116 @@ public class Amigos : MonoBehaviour
 	//Cria um novo amigo com atributos (inclusive imagem) aleatorios
 	public GameObject CriarAmigo ()
 	{
-		
+		GameObject amigoOriginal = amigoPrefab;
 		if (transform.childCount - 2 < limiteCriacaoAmigos) {
 
 			//Criar um prefab de um amigo novo
-			GameObject amigoNovo = Instantiate(amigoPrefab, new Vector3(),transform.rotation,this.transform);
-			amigoNovo.SetActive (true);
+			amigoOriginal = Instantiate(amigoPrefab, new Vector2(),transform.rotation,amigoPrefab.transform.parent);
+			amigoOriginal.name = amigoOriginal.gameObject.name+"$";
+			amigoOriginal.transform.position = new Vector3(0,0,0);
+			amigoOriginal.SetActive (true);
 
 			//Pegar Imagem aleatoria de amigo na pasta Resources/Amigos e colocar no amigo
 			object[] spriteList;
 			spriteList = Resources.LoadAll ("Amigos", typeof(Sprite));
 			Sprite spriteEscolhido = (Sprite)spriteList [Random.Range (0, spriteList.Length)];
-			amigoNovo.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
+			amigoOriginal.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
 
 			//De acordo com o sexo da pessoa da imagem, escolhe os atributos apropriados
 			if (spriteEscolhido.name.Contains ("H")) {
-				amigoNovo.GetComponent<Amigo> ().personagemMasc = true;
-				amigoNovo.GetComponent<Amigo> ().EscolherTudo ();
+				amigoOriginal.GetComponent<Amigo> ().personagemMasc = true;
+				amigoOriginal.GetComponent<Amigo> ().EscolherTudo ();
 			} else {
-				amigoNovo.GetComponent<Amigo> ().personagemMasc = false;
-				amigoNovo.GetComponent<Amigo> ().EscolherTudo ();
+				amigoOriginal.GetComponent<Amigo> ().personagemMasc = false;
+				amigoOriginal.GetComponent<Amigo> ().EscolherTudo ();
 			}
 
-			return amigoNovo;
+			return amigoOriginal;
 		}
 
 		StartCoroutine(ReordenarPosicoes());
 
-		return null;
+		AtualizarTexto();
+
+		if (amigoOriginal != null)
+			return amigoOriginal;
+		else
+			return null;
 	}
 
 	//Cria um novo amigo de determinado sexo
 	public GameObject CriarAmigo (string sexo)
 	{
-		GameObject amigoNovo = null;
+		GameObject amigoOriginal = amigoPrefab;
 		if (transform.childCount - 2 < limiteCriacaoAmigos) 
 		{
 			if (sexo.ToLower () == "masculino" || sexo.ToLower () == "homem") {
 				//Criar um prefab de um amigo novo
-				amigoNovo = Instantiate (amigoPrefab, this.transform);
-				amigoNovo.SetActive (true);
+				amigoOriginal = Instantiate (amigoPrefab, this.transform);
+				amigoOriginal.SetActive (true);
 
 				//Pegar Imagem aleatoria de amigo na pasta Resources/Amigos e colocar no amigo
 				object[] spriteList;
 				spriteList = Resources.LoadAll ("Amigos", typeof(Sprite));
 				Sprite spriteEscolhido;
 				spriteEscolhido = (Sprite)spriteList [Random.Range (0, spriteList.Length)];
-				amigoNovo.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
+				amigoOriginal.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
 				while (!spriteEscolhido.name.Contains ("H")) {
 					spriteEscolhido = (Sprite)spriteList [Random.Range (0, spriteList.Length)];
-					amigoNovo.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
+					amigoOriginal.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
 				}
 				//De acordo com o sexo da pessoa da imagem, escolhe os atributos apropriados
-				amigoNovo.GetComponent<Amigo> ().personagemMasc = true;
-				amigoNovo.GetComponent<Amigo> ().EscolherTudo ();
+				amigoOriginal.GetComponent<Amigo> ().personagemMasc = true;
+				amigoOriginal.GetComponent<Amigo> ().EscolherTudo ();
 			} else if (sexo.ToLower () == "feminino" || sexo.ToLower () == "mulher") {
 				//Criar um prefab de um amigo novo
-				amigoNovo = Instantiate (amigoPrefab, this.transform);
-				amigoNovo.SetActive (true);
+				amigoOriginal = Instantiate (amigoPrefab, this.transform);
+				amigoOriginal.SetActive (true);
 
 				//Pegar Imagem aleatoria de amigo na pasta Resources/Amigos e colocar no amigo
 				object[] spriteList;
 				spriteList = Resources.LoadAll ("Amigos", typeof(Sprite));
 				Sprite spriteEscolhido;
 				spriteEscolhido = (Sprite)spriteList [Random.Range (0, spriteList.Length)];
-				amigoNovo.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
+				amigoOriginal.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
 				while (!spriteEscolhido.name.Contains ("M")) {
 					spriteEscolhido = (Sprite)spriteList [Random.Range (0, spriteList.Length)];
-					amigoNovo.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
+					amigoOriginal.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
 				}
 				//De acordo com o sexo da pessoa da imagem, escolhe os atributos apropriados
-				amigoNovo.GetComponent<Amigo> ().personagemMasc = false;
-				amigoNovo.GetComponent<Amigo> ().EscolherTudo ();
+				amigoOriginal.GetComponent<Amigo> ().personagemMasc = false;
+				amigoOriginal.GetComponent<Amigo> ().EscolherTudo ();
 			} else {
 				//Criar um prefab de um amigo novo
-				amigoNovo = Instantiate (amigoPrefab, this.transform);
-				amigoNovo.SetActive (true);
+				amigoOriginal = Instantiate (amigoPrefab, new Vector2(),transform.rotation,amigoPrefab.transform.parent);
+				amigoOriginal.name = amigoOriginal.gameObject.name+"$";
+				amigoOriginal.transform.position = new Vector3(0,0,0);
+				amigoOriginal.SetActive (true);
 
 				//Pegar Imagem aleatoria de amigo na pasta Resources/Amigos e colocar no amigo
 				object[] spriteList;
 				spriteList = Resources.LoadAll ("Amigos", typeof(Sprite));
 				Sprite spriteEscolhido = (Sprite)spriteList [Random.Range (0, spriteList.Length)];
-				amigoNovo.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
+				amigoOriginal.GetComponent<SpriteRenderer> ().sprite = spriteEscolhido;
 
 				//De acordo com o sexo da pessoa da imagem, escolhe os atributos apropriados
 				if (spriteEscolhido.name.Contains ("H")) {
-					amigoNovo.GetComponent<Amigo> ().personagemMasc = true;
-					amigoNovo.GetComponent<Amigo> ().EscolherTudo ();
+					amigoOriginal.GetComponent<Amigo> ().personagemMasc = true;
+					amigoOriginal.GetComponent<Amigo> ().EscolherTudo ();
 				} else {
-					amigoNovo.GetComponent<Amigo> ().personagemMasc = false;
-					amigoNovo.GetComponent<Amigo> ().EscolherTudo ();
+					amigoOriginal.GetComponent<Amigo> ().personagemMasc = false;
+					amigoOriginal.GetComponent<Amigo> ().EscolherTudo ();
 				}
 
 			}
 		}
 
+		AtualizarTexto();
 		StartCoroutine(ReordenarPosicoes());
 
-		if (amigoNovo != null)
-			return amigoNovo;
+
+		if (amigoOriginal != null)
+			return amigoOriginal;
 		else
 			return null;
 	}
@@ -314,6 +329,11 @@ public class Amigos : MonoBehaviour
 			transform.GetChild(i).transform.position = posicaoInicial;
 			transform.GetChild(i).gameObject.SetActive(false);
 		}
+	}
+
+	public void ArrumarPosicoes ()
+	{
+		StartCoroutine(ReordenarPosicoes());
 	}
 
 	public IEnumerator ReordenarPosicoes ()

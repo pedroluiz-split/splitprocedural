@@ -211,7 +211,8 @@ public class ControladorEventos : MonoBehaviour {
 	{
 		paiEvento.SetActive(true);
 		//Escolher uma linha aleatória do arquivo Eventos.txt
-		textoEventoAleatorio = textoEventos[Random.Range(1,textoEventos.Length)];
+		int numAleat = Random.Range(1,textoEventos.Length);
+		textoEventoAleatorio = textoEventos[numAleat];
 
 		descricaoEvento = textoEventoAleatorio.Split(new string[]{ "\n" }, System.StringSplitOptions.None)[0];
 
@@ -230,6 +231,11 @@ public class ControladorEventos : MonoBehaviour {
 
 		//Rodar o método para organizar a tela e ativar tudo
 		OrganizarTela();
+
+		List<string> textoEvento = new List<string>();
+		textoEvento.AddRange(textoEventos);
+		textoEvento.Remove(textoEventos[numAleat]);
+		textoEventos = textoEvento.ToArray();
 	}
 
 	public void AcessarArquivo ()

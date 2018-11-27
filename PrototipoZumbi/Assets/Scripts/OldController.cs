@@ -58,6 +58,8 @@ public class OldController : MonoBehaviour {
 		fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA 1\n\nComeçou o apocalipse.";
 
 		EscolherHabilidades();
+
+		AtualizarRadar();
 	}
 
 	public void AtualizarRadar ()

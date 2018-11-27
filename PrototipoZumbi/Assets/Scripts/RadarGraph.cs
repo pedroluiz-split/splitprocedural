@@ -17,11 +17,17 @@ public class RadarGraph : MonoBehaviour {
 	{  
 		posicaoInicial = transform.position;
 		//CriarGrafico();
-		DebugDrawPolygon(posicaoInicial, raio, qntItens);
+		Esperar(0.01f);
 		//Teste();
 		//mesh.SetColors(new List<Color>(4){Color.blue,Color.blue,Color.blue,Color.blue});
 	}
 
+
+	IEnumerator Esperar (float segundos)
+	{
+		yield return new WaitForSeconds(segundos);
+		DebugDrawPolygon(posicaoInicial, raio, qntItens);
+	}
 
 	public void AjustarNormaisEUVs (Mesh mesh)
 	{

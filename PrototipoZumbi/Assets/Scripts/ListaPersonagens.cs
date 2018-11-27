@@ -55,7 +55,10 @@ public class ListaPersonagens : MonoBehaviour {
 
 	public void DesativarLista ()
 	{
-		Destroy(novaLista.gameObject);
+		if (novaLista != null)
+			Destroy(novaLista.gameObject);
+
+		
 	}
 
 	public void RetirarAmigosUsados ()
@@ -91,7 +94,9 @@ public class ListaPersonagens : MonoBehaviour {
 
 	public void InvadirPredio ()
 	{
-		Predio.ultimoAtivo.GetComponent<Predio>().EntrarPredio();
+		if (Predio.ultimoAtivo != null)
+			Predio.ultimoAtivo.GetComponent<Predio>().EntrarPredio();
+		
 	}
 
 	public void TrocarImagemBotao (int num)

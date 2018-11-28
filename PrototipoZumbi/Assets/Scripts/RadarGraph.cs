@@ -15,11 +15,34 @@ public class RadarGraph : MonoBehaviour {
 
 	void Start ()
 	{  
-		posicaoInicial = transform.position;
+		//Caso for o player, coloca posicao inicial como transform.position. Caso não, transform.localPosition
+		if (transform.parent.name != "TelaAmigo") {
+			posicaoInicial = transform.parent.position;
+		} else {
+			posicaoInicial = transform.parent.localPosition;
+		}
 		//CriarGrafico();
-		Esperar(0.01f);
+		//StartCoroutine(Esperar(0.01f));
 		//Teste();
 		//mesh.SetColors(new List<Color>(4){Color.blue,Color.blue,Color.blue,Color.blue});
+		StartCoroutine(AtualizarRadar(habilidades,0.1f));
+	}
+
+
+	IEnumerator AtualizarRadar (float [] habilidades, float seg)
+	{
+		//StartCoroutine(Esperar(0.1f));
+		//DebugDrawPolygon(posicaoInicial, raio, qntItens);
+		this.habilidades = habilidades;
+		yield return new WaitForSeconds(seg);
+		//DebugDrawPolygon(posicaoInicial,raio,qntItens);
+		//StartCoroutine(Esperar(0.01f));
+		StartCoroutine(AtualizarRadar(habilidades,0.1f));
+	}
+
+	public void ChamarAtual(float [] habilidades){
+
+		StartCoroutine(AtualizarRadar(habilidades,0.1f));
 	}
 
 

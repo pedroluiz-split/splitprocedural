@@ -19,16 +19,20 @@ public class Amigo : MonoBehaviour {
 	public static int amigoEscolhido;
 	private bool estaClicado = false;
 	public static GameObject amigo;
+	public GameObject radar;
 
 	// Use this for initialization
 	void Start ()
 	{
+		if (transform.parent.GetSiblingIndex() < 5)
+			radar = GameObject.Find("Group").transform.GetChild(0).GetChild(2).GetChild(2).GetChild(0).gameObject;
 		EscolherTudo ();
 		transform.name = transform.name.Replace ("1(Clone)", transform.GetSiblingIndex ().ToString ());
 		if (transform.parent.parent == null) {
 			GetComponent<SpriteRenderer>().color = new Color(0.5f,0.5f,0.5f,1);
 		}
 	}
+
 
 	public void EscolherHabilidades ()
 	{
@@ -89,34 +93,52 @@ public class Amigo : MonoBehaviour {
 	void OnMouseDown ()
 	{
 		//Ao clicar nos amigos da TimeLine
-		if (transform.parent.parent != null) {
+		if (!transform.name.Contains ("$")) {
+			Debug.Log("Ligou radar");
+			radar.gameObject.SetActive(true);
 			Debug.Log ("Clicou no amigo " + nomeEscolhido);
 			amigoEscolhido = transform.GetSiblingIndex ();
 			Amigos.amigos.AtualizarRadar (listaHabilidades);
+			//radar.SetActive(true);
+			radar.GetComponent<RadarGraph>().ChamarAtual(listaHabilidades);
 			telaAmigo.SetActive (true);
 			telaAmigo.transform.GetChild (0).GetComponent<Image> ().sprite = GetComponent<SpriteRenderer> ().sprite;
 			telaAmigo.transform.GetChild (1).GetComponent<Text> ().text = "Nome: " + nomeEscolhido;
 			telaAmigo.transform.GetChild (2).GetComponent<Text> ().text = "Profissão: " + profissaoEscolhida;
 			telaAmigo.transform.GetChild (3).GetComponent<Text> ().text = "Descrição: " + descricaoEscolhida;
 			transform.parent.parent.gameObject.SetActive (false);
-		}	
 
-		//Ao clicar nos amigos para selecionar quem vai entrar no prédio 
-		else {
-			//Caso não tenha pai, ele verifica se aquele amigo está selecionado e troca a cor. Caso não esteja selecionado, troca a cor
-			if (estaClicado) {
-				//EscolherPersonagem ();
-			} else {
-				if (amigoEscolhido != 0 && amigoEscolhido != null) {
-					transform.parent.transform.GetChild (amigoEscolhido).GetComponent<SpriteRenderer> ().color = new Color (0.5f, 0.5f, 0.5f, 1);
-					transform.parent.transform.GetChild (amigoEscolhido).GetComponent<Amigo>().estaClicado = false;
+
+			//Ao clicar nos amigos para selecionar quem vai entrar no prédio 
+		}else 
+			{
+				radar.transform.parent.gameObject.SetActive(true);
+				//Caso não tenha pai, ele verifica se aquele amigo está selecionado e troca a cor. Caso não esteja selecionado, troca a cor
+				if (estaClicado) {
+					//EscolherPersonagem ();
+				} else {
+					if (amigoEscolhido != 0 && amigoEscolhido != null) {
+						transform.parent.transform.GetChild (amigoEscolhido).GetComponent<SpriteRenderer> ().color = new Color (0.5f, 0.5f, 0.5f, 1);
+						transform.parent.transform.GetChild (amigoEscolhido).GetComponent<Amigo> ().estaClicado = false;
+					}
+					amigoEscolhido = transform.GetSiblingIndex ();
+					estaClicado = true;
+					GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+					if (radar != null) {
+					radar.GetComponent<RadarGraph>().ChamarAtual(listaHabilidades);
+						//Amigos.amigos.AtualizarRadar (listaHabilidades);
+					}
 				}
-				amigoEscolhido = transform.GetSiblingIndex ();
-				estaClicado = true;
-				GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
 			}
+
+
 		}
-    }//Caso o amigo escolhido não seja null ao clicar no botão, ele volta a ter a cor escura.
+
+		public void SelecionarAmigos ()
+	{
+
+	}
+    //Caso o amigo escolhido não seja null ao clicar no botão, ele volta a ter a cor escura.
 
     public void EscolherPersonagem ()
 	{

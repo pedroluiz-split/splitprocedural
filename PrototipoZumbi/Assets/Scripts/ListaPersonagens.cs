@@ -35,8 +35,8 @@ public class ListaPersonagens : MonoBehaviour {
 	public void InstanciarLista ()
 	{
 		//Instancia nova lista de amigos
-		novaLista = Instantiate(personagens,posLista,transform.rotation);
-		novaLista.GetComponent<Amigos>().limLinha = 6;
+		novaLista = Instantiate(personagens,posLista,transform.rotation, transform.parent);
+		novaLista.GetComponent<Amigos>().limLinha = 10;
 		if (originalScale == null)
 			originalScale = novaLista.transform.localScale;
 		novaLista.transform.localScale = novaLista.transform.localScale*0.7f;

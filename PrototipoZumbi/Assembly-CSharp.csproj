@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\CallScene.cs" />
      <Compile Include="Assets\Scripts\CharacterController.cs" />
      <Compile Include="Assets\Scripts\ControladorEventos.cs" />
+     <Compile Include="Assets\Scripts\EscolhaPersonagem.cs" />
      <Compile Include="Assets\Scripts\EscolhaPersonagens.cs" />
      <Compile Include="Assets\Scripts\GoogleApi.cs" />
      <Compile Include="Assets\Scripts\ListaPersonagens.cs" />
@@ -64,9 +65,11 @@
      <Compile Include="Assets\Scripts\OldController.cs" />
      <Compile Include="Assets\Scripts\Personalidade.cs" />
      <Compile Include="Assets\Scripts\Predio.cs" />
+     <Compile Include="Assets\Scripts\Predios.cs" />
      <Compile Include="Assets\Scripts\RadarGraph.cs" />
      <Compile Include="Assets\Scripts\RandomNumber.cs" />
      <Compile Include="Assets\Scripts\Secret.cs" />
+     <Compile Include="Assets\Scripts\Utilitario.cs" />
      <None Include="Assets\Resources\NomesMasculinos.txt" />
      <None Include="Assets\BrokenVector\FreeLowPolyPack\readme.txt" />
      <None Include="Assets\Low Poly Car Set 1 - Classic American Muscles\readme.txt" />

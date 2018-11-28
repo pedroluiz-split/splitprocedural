@@ -58,15 +58,17 @@ public class Predio : MonoBehaviour {
 		infos = AtualizarTextoChance();
 		AtualizarTextoChance();
 		AtualizarChanceSucesso ();
+
+		//Se não entrou no predio
 		if (!jaEntrou) {
-			if (esperandoClique) {
-				//EntrarPredio ();
-			} else if (estaClicado) 
+			//Caso esteja já clicado
+			if (estaClicado) 
 			{
+				Predios.predios.AtivarColliders();
 				estaClicado = false;
 
 				//Desabilita o ultimo predio ativo
-				if (ultimoAtivo != null) 
+				if (ultimoAtivo != null)
 				{
 					if (!ultimoAtivo.GetComponent<Predio> ().jaEntrou)
 						ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
@@ -74,11 +76,15 @@ public class Predio : MonoBehaviour {
 					ultimoAtivo.GetComponent<Predio> ().estaClicado = false;
 				}
 				GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
-
+				Predios.predios.MudarAtivado(false);
 				infoPredioObjeto.transform.parent.gameObject.SetActive (false);
-				ListaPersonagens.listaPersonagens.AtivarColliderPredios ();
-			} else 
+				//ListaPersonagens.listaPersonagens.AtivarColliderPredios ();
+			} 
+			//Caso não esteja clicado
+			else 
 			{
+				Predios.predios.DesativarCollider(transform.GetSiblingIndex());
+				Predios.predios.DesativarOutrosColliders(transform.GetSiblingIndex());
 				if (ultimoAtivo != null) {
 					if (!ultimoAtivo.GetComponent<Predio> ().jaEntrou)
 						ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
@@ -96,6 +102,7 @@ public class Predio : MonoBehaviour {
 				//MeshRenderer rend = GetComponent<MeshRenderer>();
 				//rend.material.shader = Shader.Find("_Color");
 				GetComponent<MeshRenderer> ().material.SetColor ("_Color", new Color (1f, 0f, 0f));
+				Predios.predios.MudarAtivado(true);
 
 				//Set the main Color of the Material to green
 				//		        rend.material.shader = Shader.Find("_Color");
@@ -109,22 +116,34 @@ public class Predio : MonoBehaviour {
 				//GetComponent<MeshRenderer>().material.
 				TrocarTextoDialogo ();
 				infoPredioObjeto.transform.parent.gameObject.SetActive (true);
-				ListaPersonagens.listaPersonagens.DesativarColliderPredios (this.name);
+				//ListaPersonagens.listaPersonagens.DesativarColliderPredios (this.name);
 			}
-		}else
-		{
+		}
 
+
+		//=================================================================================
+
+
+
+
+		//Caso entrou no predio
+		else
+		{
+			//Caso esteja clicado
 			if (estaClicado) 
 			{
+				Predios.predios.AtivarColliders();
 				estaClicado = false;
 				infoPredioObjeto.transform.parent.gameObject.SetActive (false);
-			} else {
+			}//Caso não esteja clicado 
+			else {
 				if (ultimoAtivo != null) 
 				{
 					if (!ultimoAtivo.GetComponent<Predio>().jaEntrou)
 						ultimoAtivo.GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
 					ultimoAtivo.GetComponent<Predio> ().estaClicado = false;
 				}
+				//Predios.predios.DesativarColliders();
 				ultimoAtivo = this.gameObject;
 				estaClicado = true;
 				infoPredioObjeto.GetComponent<Text>().text = "Prédio "+ transform.name + "\n\nPrédio Conquistado!";

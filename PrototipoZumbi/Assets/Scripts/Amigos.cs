@@ -105,7 +105,9 @@ public class Amigos : MonoBehaviour
 
 			//Criar um prefab de um amigo novo
 			amigoOriginal = Instantiate(amigoPrefab, new Vector2(),transform.rotation,amigoPrefab.transform.parent);
-			amigoOriginal.name = amigoOriginal.gameObject.name+"$";
+			if (transform.parent.name != "TimeLine")
+				amigoOriginal.name = amigoOriginal.gameObject.name+"$";
+				
 			amigoOriginal.transform.position = new Vector3(0,0,0);
 			amigoOriginal.SetActive (true);
 
@@ -338,7 +340,7 @@ public class Amigos : MonoBehaviour
 
 	public IEnumerator ReordenarPosicoes ()
 	{
-		yield return new WaitForSeconds(0.01f);
+		yield return new WaitForSeconds(0.001f);
 		
 		float nextPosX = posicaoInicial.x;
 		float nextPosY = posicaoInicial.y;

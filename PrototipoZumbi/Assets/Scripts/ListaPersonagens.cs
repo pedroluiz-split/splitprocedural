@@ -16,6 +16,9 @@ public class ListaPersonagens : MonoBehaviour {
 	public GameObject predios;
 	public List<string> listaAmigos;
 	private Vector3 originalScale;
+	public GameObject camera1;
+	public GameObject camera2;
+	public GameObject radar;
 
 	void Awake ()
 	{
@@ -35,22 +38,67 @@ public class ListaPersonagens : MonoBehaviour {
 	public void InstanciarLista ()
 	{
 		//Instancia nova lista de amigos
-		novaLista = Instantiate(personagens,posLista,transform.rotation, transform.parent);
-		novaLista.GetComponent<Amigos>().limLinha = 10;
+		novaLista = Instantiate (personagens, posLista, transform.rotation, transform.parent.parent);
+		novaLista.GetComponent<Amigos> ().limLinha = 10;
+
 		if (originalScale == null)
 			originalScale = novaLista.transform.localScale;
-		novaLista.transform.localScale = novaLista.transform.localScale*0.7f;
-		RetirarAmigosUsados();
-		StartCoroutine(novaLista.GetComponent<Amigos>().ReordenarPosicoes());
-		novaLista.GetComponent<Amigos>().enabled = false;
-		novaLista.transform.localScale = novaLista.transform.localScale*scaleLista;
-		StartCoroutine(TrocarPos(posLista));
+		//novaLista.transform.localScale = novaLista.transform.localScale * 0.7f;
+		RetirarAmigosUsados ();
+
+
+		novaLista.GetComponent<Amigos> ().enabled = false;
+		//novaLista.transform.localScale = novaLista.transform.localScale * scaleLista;
+		AcrescentarNome(novaLista,"$");
+		TrocarCamera(camera2, camera1);
+		novaLista.transform.localScale = novaLista.transform.localScale*50;
+		novaLista.transform.position = novaLista.transform.position;
+//		for (int i = 0; i < novaLista.transform.childCount; i++) {
+//			novaLista.transform.GetChild(i).position = new Vector2(-20,0);
+//		}
+		
+		//StartCoroutine (Teste());
+		StartCoroutine (novaLista.GetComponent<Amigos> ().ReordenarPosicoes (transform.position.x, transform.position.y));
+		DesmarcarAmigos(novaLista);
+		//StartCoroutine(TrocarPos(posLista));
+	}
+
+	public IEnumerator Teste ()
+	{
+		yield return new WaitForSeconds(11f);
+//		for (int i = 0; i < novaLista.transform.childCount; i++) {
+//			novaLista.transform.GetChild(i).position = new Vector2(-20,0);
+//		}
+		
+
+	}
+
+	public void TrocarCamera (GameObject cameraAntiga, GameObject cameraNova)
+	{
+		cameraAntiga.SetActive(false);
+		cameraNova.SetActive(true);
+	}
+
+	public void AcrescentarNome (GameObject amigos, string adicional)
+	{
+		for (int i = 0; i < amigos.transform.childCount; i++) {
+			amigos.transform.GetChild(i).transform.name = amigos.transform.GetChild(i).transform.name + adicional;
+		}
+		amigos.transform.parent.name = amigos.transform.parent.name + "$";
 	}
 
 	public void EscolherAmigo ()
 	{
 		if (Amigo.amigoEscolhido != 0 && Amigo.amigoEscolhido != null)
 			novaLista.transform.GetChild(Amigo.amigoEscolhido).GetComponent<Amigo>().EscolherPersonagem();
+	}
+
+	public void DesmarcarAmigos (GameObject amigos)
+	{
+		for (int i = 0; i < amigos.transform.childCount; i++) 
+		{
+			amigos.transform.GetChild(i).GetComponent<SpriteRenderer>().color = new Color(0.5f,0.5f,0.5f,1);
+		}
 	}
 
 	public void DesativarLista ()

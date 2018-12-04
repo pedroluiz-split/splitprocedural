@@ -17,20 +17,23 @@ public class Amigo : MonoBehaviour {
 	private TextAsset nomeFemText;
 	public bool personagemMasc;
 	public static int amigoEscolhido;
-	private bool estaClicado = false;
+	public bool estaClicado = false;
 	public static GameObject amigo;
 	public GameObject radar;
+	public GameObject cameraCerta;
+	public static GameObject ultimoAmigoAtivo;
 
 	// Use this for initialization
 	void Start ()
 	{
-		if (transform.parent.GetSiblingIndex() < 5)
-			radar = GameObject.Find("Group").transform.GetChild(0).GetChild(2).GetChild(2).GetChild(0).gameObject;
+//		if (transform.parent.GetSiblingIndex() < 5)
+//			radar = GameObject.Find("Group$").transform.GetChild(0).GetChild(2).GetChild(2).GetChild(0).gameObject;
 		EscolherTudo ();
 		transform.name = transform.name.Replace ("1(Clone)", transform.GetSiblingIndex ().ToString ());
-		if (transform.parent.parent == null) {
-			GetComponent<SpriteRenderer>().color = new Color(0.5f,0.5f,0.5f,1);
+		if (transform.name.Contains("$")) {
+			GetComponent<SpriteRenderer> ().color = new Color (0.5f, 0.5f, 0.5f, 1);
 		}
+
 	}
 
 
@@ -86,49 +89,72 @@ public class Amigo : MonoBehaviour {
 		EscolherProfissao();
 		EscolherDescricao();
 		EscolherHabilidades();
+	}
 
-		//Amigos.amigos.AtualizarRadar (listaHabilidades);
+	public void AtualizarRadar ()
+	{
+		radar.transform.GetChild(0).GetComponent<RadarGraph>().habilidades = this.listaHabilidades;
+		radar.transform.GetChild(0).GetComponent<RadarGraph>().DebugDrawPolygon(radar.transform.GetChild(0).GetComponent<RadarGraph>().posicaoInicial,radar.transform.GetChild(0).GetComponent<RadarGraph>().raio,radar.transform.GetChild(0).GetComponent<RadarGraph>().qntItens);
+	}
+
+	public void ArrumarTelaAmigo ()
+	{
+		telaAmigo.SetActive (true);
+		telaAmigo.transform.GetChild (0).GetComponent<Image> ().sprite = GetComponent<SpriteRenderer> ().sprite;
+		telaAmigo.transform.GetChild (1).GetComponent<Text> ().text = "Nome: " + nomeEscolhido;
+		telaAmigo.transform.GetChild (2).GetComponent<Text> ().text = "Profissão: " + profissaoEscolhida;
+		telaAmigo.transform.GetChild (3).GetComponent<Text> ().text = "Descrição: " + descricaoEscolhida;
 	}
 
 	void OnMouseDown ()
 	{
 		//Ao clicar nos amigos da TimeLine
 		if (!transform.name.Contains ("$")) {
-			Debug.Log("Ligou radar");
-			radar.gameObject.SetActive(true);
-			Debug.Log ("Clicou no amigo " + nomeEscolhido);
+			radar.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
 			amigoEscolhido = transform.GetSiblingIndex ();
-			Amigos.amigos.AtualizarRadar (listaHabilidades);
-			//radar.SetActive(true);
-			radar.GetComponent<RadarGraph>().ChamarAtual(listaHabilidades);
-			telaAmigo.SetActive (true);
-			telaAmigo.transform.GetChild (0).GetComponent<Image> ().sprite = GetComponent<SpriteRenderer> ().sprite;
-			telaAmigo.transform.GetChild (1).GetComponent<Text> ().text = "Nome: " + nomeEscolhido;
-			telaAmigo.transform.GetChild (2).GetComponent<Text> ().text = "Profissão: " + profissaoEscolhida;
-			telaAmigo.transform.GetChild (3).GetComponent<Text> ().text = "Descrição: " + descricaoEscolhida;
+			//Amigos.amigos.AtualizarRadar (listaHabilidades);
+			//radar.transform.GetChild(0).GetComponent<RadarGraph>().ChamarAtual(listaHabilidades);
+			radar.SetActive(true);
 			transform.parent.parent.gameObject.SetActive (false);
-
+			//AtualizarRadar(listaHabilidades);
+			//radar.transform.GetChild(0)
+			ArrumarTelaAmigo ();
+			AtualizarRadar ();
 
 			//Ao clicar nos amigos para selecionar quem vai entrar no prédio 
-		}else 
-			{
-				radar.transform.parent.gameObject.SetActive(true);
+		} else {
+			if (ultimoAmigoAtivo != null) {
+				ultimoAmigoAtivo.GetComponent<SpriteRenderer> ().color = new Color (0.5f, 0.5f, 0.5f, 1);
+				estaClicado = false;
+			}
+				transform.parent.parent.GetChild(0).GetChild(2).GetChild(2).gameObject.SetActive(true);
+				//radar = transform.parent.parent.GetChild(0).GetChild(2).GetChild(2).gameObject;
+				//radar.transform.GetComponent<Utilitario>().ReaparecerGrafico(radar.transform.gameObject);
 				//Caso não tenha pai, ele verifica se aquele amigo está selecionado e troca a cor. Caso não esteja selecionado, troca a cor
 				if (estaClicado) {
 					//EscolherPersonagem ();
-				} else {
-					if (amigoEscolhido != 0 && amigoEscolhido != null) {
+				if (amigoEscolhido != 0 && amigoEscolhido != null) {
 						transform.parent.transform.GetChild (amigoEscolhido).GetComponent<SpriteRenderer> ().color = new Color (0.5f, 0.5f, 0.5f, 1);
 						transform.parent.transform.GetChild (amigoEscolhido).GetComponent<Amigo> ().estaClicado = false;
 					}
+				} else {
+				transform.parent.transform.GetChild (transform.GetSiblingIndex()).GetComponent<SpriteRenderer> ().color = new Color (1f, 1f, 1f, 1);
 					amigoEscolhido = transform.GetSiblingIndex ();
 					estaClicado = true;
-					GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
-					if (radar != null) {
-					radar.GetComponent<RadarGraph>().ChamarAtual(listaHabilidades);
+					radar.GetComponent<SpriteRenderer>().color = new Color (1,1,1,1);
+//					if (radar != null) {
+//						radar.GetComponent<RadarGraph>().ChamarAtual(listaHabilidades);
 						//Amigos.amigos.AtualizarRadar (listaHabilidades);
-					}
+					
+
+
 				}
+				Debug.Log("Mudou cameras");
+				Camera.main.gameObject.SetActive(false);
+				cameraCerta.SetActive(true);
+				ultimoAmigoAtivo = this.gameObject;
+				//transform.position = transform.parent.position;
+				//StartCoroutine(transform.parent.GetComponent<Amigos>().ReordenarPosicoes());
 			}
 
 

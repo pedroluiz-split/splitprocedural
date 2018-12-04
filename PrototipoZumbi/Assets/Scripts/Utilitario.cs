@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class Utilitario : MonoBehaviour {
 
-	public GameObject grafico;
+	public static bool amigoAtivo = false;
+	public bool jaAtualizou = false;
 
 
-	public void ReaparecerGrafico ()
+	public void ReaparecerGrafico (GameObject grafico)
 	{
 		grafico.GetComponent<SpriteRenderer>().color = new Color(1,1,1,1);
+	}
+
+	public void DesaparecerGrafico (GameObject grafico)
+	{
+		grafico.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0);
 	}
 }

@@ -65,7 +65,7 @@ public class OldController : MonoBehaviour {
 	public void AtualizarRadar ()
 	{
 		graficoRadar.GetComponent<RadarGraph>().habilidades = listaHabilidades;
-		graficoRadar.GetComponent<RadarGraph>().DebugDrawPolygon(graficoRadar.GetComponent<RadarGraph>().posicaoInicial,graficoRadar.GetComponent<RadarGraph>().raio,graficoRadar.GetComponent<RadarGraph>().qntItens);
+		graficoRadar.GetComponent<RadarGraph>().DebugDrawPolygon(graficoRadar.GetComponent<RadarGraph>().posicaoInicial,1,9);
 	}
 
 	public void EscolherHabilidades()

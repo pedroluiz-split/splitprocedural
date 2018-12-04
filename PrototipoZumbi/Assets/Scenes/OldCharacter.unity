@@ -1337,17 +1337,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2082159581}
-        m_MethodName: RetirarAmigosUsados
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &163297882
@@ -2510,7 +2499,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 229995170}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 677664206}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &229995170
@@ -2826,7 +2826,6 @@ RectTransform:
   m_Children:
   - {fileID: 288170577}
   - {fileID: 1994599462}
-  - {fileID: 284803733}
   m_Father: {fileID: 693693743}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3219,9 +3218,9 @@ GameObject:
   m_Component:
   - component: {fileID: 284803733}
   - component: {fileID: 284803734}
-  - component: {fileID: 284803735}
+  - component: {fileID: 284803736}
   m_Layer: 0
-  m_Name: RadarChart_2
+  m_Name: RadarChart_Amigos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3235,11 +3234,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 284803732}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 119.79995, y: -11.399996, z: -48}
-  m_LocalScale: {x: 19.14877, y: 19.148771, z: 0.27418408}
+  m_LocalPosition: {x: 568.193, y: 223.34091, z: -56.27688}
+  m_LocalScale: {x: 22.450668, y: 22.450687, z: 0.321463}
   m_Children:
   - {fileID: 1535069291}
-  m_Father: {fileID: 256882085}
+  m_Father: {fileID: 693693743}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &284803734
@@ -3276,7 +3275,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2a0cc18fa13b8234f961a2682d567519, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
@@ -3287,23 +3286,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!114 &284803735
+--- !u!114 &284803736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 284803732}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6088ee0c963c37644ab1940360fd5543, type: 3}
+  m_Script: {fileID: 11500000, guid: 366ae452206fb704d8c3d520acc5549b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 1
-  height: 1
-  raio: 1
-  qntItens: 8
-  habilidades: []
-  posicaoInicial: {x: 0, y: 0}
+  jaAtualizou: 0
 --- !u!1 &285040066
 GameObject:
   m_ObjectHideFlags: 0
@@ -3469,9 +3463,9 @@ RectTransform:
   - {fileID: 1814895544}
   - {fileID: 1665845486}
   - {fileID: 1074683487}
-  - {fileID: 1535242292}
   - {fileID: 1682983094}
   - {fileID: 677664209}
+  - {fileID: 1535242292}
   m_Father: {fileID: 256882085}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4047,6 +4041,28 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 887390534}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1831449078}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1554269691}
         m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
@@ -4737,18 +4753,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 393201281}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 393201283}
-        m_MethodName: ReaparecerGrafico
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &393201281
@@ -4795,7 +4800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 366ae452206fb704d8c3d520acc5549b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grafico: {fileID: 1535069290}
+  jaAtualizou: 0
 --- !u!1 &397295148
 GameObject:
   m_ObjectHideFlags: 0
@@ -6351,17 +6356,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2082159581}
-        m_MethodName: RetirarAmigosUsados
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &655392670
@@ -6707,7 +6701,7 @@ MonoBehaviour:
   amigoPrefab: {fileID: 1299326183}
   limiteCriacaoAmigos: 9
   texto: {fileID: 1814895543}
-  graficoRadar: {fileID: 1535069290}
+  graficoRadar: {fileID: 284803732}
 --- !u!212 &677664208
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6759,13 +6753,13 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 677664206}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 160, y: 79.1, z: 0}
+  m_LocalPosition: {x: 176, y: 79.1, z: 0}
   m_LocalScale: {x: 25, y: 25, z: 0.41666666}
   m_Children:
   - {fileID: 896411613}
   - {fileID: 1299326182}
   m_Father: {fileID: 288170577}
-  m_RootOrder: 27
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &677878611
 GameObject:
@@ -6899,7 +6893,7 @@ RectTransform:
   m_Children:
   - {fileID: 256882085}
   - {fileID: 1870243445}
-  - {fileID: 1978084614}
+  - {fileID: 284803733}
   - {fileID: 1207649890}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -7182,14 +7176,14 @@ GameObject:
   m_Component:
   - component: {fileID: 708836858}
   - component: {fileID: 708836859}
-  - component: {fileID: 708836860}
+  - component: {fileID: 708836861}
   m_Layer: 0
   m_Name: RadarChart_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &708836858
 Transform:
   m_ObjectHideFlags: 0
@@ -7198,8 +7192,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 708836857}
   m_LocalRotation: {x: 0.000000029802322, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1216, y: -746.8, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_LocalPosition: {x: 547, y: -377, z: 0}
+  m_LocalScale: {x: 30, y: 30, z: 1}
   m_Children:
   - {fileID: 894164832}
   m_Father: {fileID: 2082159580}
@@ -7239,7 +7233,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2a0cc18fa13b8234f961a2682d567519, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7250,23 +7244,18 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
---- !u!114 &708836860
+--- !u!114 &708836861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 708836857}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6088ee0c963c37644ab1940360fd5543, type: 3}
+  m_Script: {fileID: 11500000, guid: 366ae452206fb704d8c3d520acc5549b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 1
-  height: 1
-  raio: 1
-  qntItens: 8
-  habilidades: []
-  posicaoInicial: {x: 0, y: 0}
+  jaAtualizou: 0
 --- !u!1 &709872181
 GameObject:
   m_ObjectHideFlags: 0
@@ -7976,11 +7965,11 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_MethodName: 
+        m_MethodName: DesaparecerGrafico
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -8049,7 +8038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &765658607
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8057,7 +8046,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 765658606}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1820312235}
@@ -8067,7 +8056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 468.7, y: 205.9}
+  m_AnchoredPosition: {x: 1267, y: 206}
   m_SizeDelta: {x: 160, y: 93.54}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &765658608
@@ -8162,18 +8151,29 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 708836857}
-        m_MethodName: SendMessage
-        m_Mode: 5
+      - m_Target: {fileID: 1554269691}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Start
+          m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1831449078}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -9075,7 +9075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &887390535
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9092,7 +9092,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 391.6, y: -572}
+  m_AnchoredPosition: {x: 1185, y: -572}
   m_SizeDelta: {x: 315.1, y: 83.89}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &887390536
@@ -9190,8 +9190,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 708836857}
-        m_MethodName: SendMessage
-        m_Mode: 5
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9199,6 +9199,28 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: Start
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1554269691}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1831449078}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -10561,8 +10583,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 975359275}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2408.66, y: -2936.82, z: 0}
-  m_LocalScale: {x: 6.4, y: 6.4, z: 6.4}
+  m_LocalPosition: {x: -1693.63, y: -2065, z: 0}
+  m_LocalScale: {x: 4.5, y: 4.5, z: 4.5}
   m_Children: []
   m_Father: {fileID: 1364243439}
   m_RootOrder: 0
@@ -10963,17 +10985,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2082159581}
-        m_MethodName: RetirarAmigosUsados
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -11443,157 +11454,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1049514392}
   m_Mesh: {fileID: 4300000, guid: 78a8c0fcbd14a3241b17e232c96ef958, type: 3}
---- !u!1001 &1049982503
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 693693743}
-    m_Modifications:
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: sobrenomes.Array.size
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -40.95957
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -26.854006
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.009400942
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1206868120579326, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: nomeTexto
-      value: 
-      objectReference: {fileID: 1171822863}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: descricaoTexto
-      value: 
-      objectReference: {fileID: 1829646764}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: statsTexto
-      value: 
-      objectReference: {fileID: 1700429553}
-    - target: {fileID: 1133689561145674, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_Name
-      value: PersonagemControlador
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: descricoes.Array.data[0]
-      value: Pedreiro(a)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: descricoes.Array.data[1]
-      value: "Bi\xF3logo(a)"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: descricoes.Array.data[2]
-      value: "M\xE9dico(a)"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: descricoes.Array.data[3]
-      value: "Farmac\xEAutico(a)"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: descricoes.Array.data[4]
-      value: Advogado(a)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: descricoes.Array.data[5]
-      value: Mendigo(a)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: descricoes.Array.data[6]
-      value: Militar
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: descricoes.Array.data[7]
-      value: Fazendeiro(a)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: descricoes.Array.data[8]
-      value: Cozinheiro(a)
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: descricoes.Array.data[9]
-      value: "Psic\xF3logo(a)"
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: sobrenomes.Array.data[10]
-      value: Anselmo
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: sobrenomes.Array.data[11]
-      value: Pereira
-      objectReference: {fileID: 0}
-    - target: {fileID: 114302681517007436, guid: 77a3fb77f963e864ab04515282939825,
-        type: 2}
-      propertyPath: sobrenomes.Array.data[12]
-      value: Rigler
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.48851407
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.4885145
-      objectReference: {fileID: 0}
-    - target: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.4885145
-      objectReference: {fileID: 0}
-    - target: {fileID: 1133689561145674, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 77a3fb77f963e864ab04515282939825, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1050555540
 GameObject:
   m_ObjectHideFlags: 0
@@ -12691,6 +12551,17 @@ MonoBehaviour:
       - m_Target: {fileID: 1831449081}
         m_MethodName: set_orthographic
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1877747198}
+        m_MethodName: DesativarTodosPredios
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14676,6 +14547,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 677664209}
     m_Modifications:
+    - target: {fileID: 114311004565206112, guid: 975c982f3172e86499638a5f50b60eb6,
+        type: 2}
+      propertyPath: listaHabilidades.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4423906400064104, guid: 975c982f3172e86499638a5f50b60eb6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -14717,7 +14593,17 @@ Prefab:
         type: 2}
       propertyPath: radar
       value: 
-      objectReference: {fileID: 1535069290}
+      objectReference: {fileID: 284803732}
+    - target: {fileID: 114311004565206112, guid: 975c982f3172e86499638a5f50b60eb6,
+        type: 2}
+      propertyPath: cameraAtual
+      value: 
+      objectReference: {fileID: 1554269691}
+    - target: {fileID: 114311004565206112, guid: 975c982f3172e86499638a5f50b60eb6,
+        type: 2}
+      propertyPath: cameraCerta
+      value: 
+      objectReference: {fileID: 1554269691}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 975c982f3172e86499638a5f50b60eb6, type: 2}
   m_IsPrefabParent: 0
@@ -15163,7 +15049,7 @@ GameObject:
   - component: {fileID: 1364243439}
   - component: {fileID: 1364243440}
   m_Layer: 0
-  m_Name: RadarChart_2 (1)
+  m_Name: RadarChart_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15178,7 +15064,7 @@ Transform:
   m_GameObject: {fileID: 1364243438}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -120.2, y: -16.9, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 0.12883236}
+  m_LocalScale: {x: 4.4, y: 4.4, z: 0.1417156}
   m_Children:
   - {fileID: 975359279}
   m_Father: {fileID: 1229317094}
@@ -15593,17 +15479,6 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2082159581}
-        m_MethodName: RetirarAmigosUsados
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -17547,8 +17422,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 618.3, y: 59.3}
-  m_SizeDelta: {x: 155.7, y: 330.6}
+  m_AnchoredPosition: {x: 513.3, y: 85.9}
+  m_SizeDelta: {x: 365.3, y: 383.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1533280308
 MonoBehaviour:
@@ -17830,7 +17705,7 @@ RectTransform:
   m_Children:
   - {fileID: 1754511790}
   m_Father: {fileID: 288170577}
-  m_RootOrder: 25
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17887,13 +17762,14 @@ MonoBehaviour:
   efeitos: []
   textoEventos: []
   textoEventoAleatorio: 
-  paiEvento: {fileID: 0}
+  paiEvento: {fileID: 1754511789}
   botoes:
   - {fileID: 1595238637}
   - {fileID: 1791479979}
   - {fileID: 1730031816}
   - {fileID: 229995167}
-  chanceDeRodarEvento: 20
+  amigos: {fileID: 677664206}
+  chanceDeRodarEvento: 50
   karmaText: {fileID: 307234689}
 --- !u!1 &1546699901
 GameObject:
@@ -18658,7 +18534,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1595238640}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 677664206}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1595238640
@@ -19540,7 +19427,7 @@ Transform:
   - {fileID: 1582958299}
   - {fileID: 381684516}
   m_Father: {fileID: 288170577}
-  m_RootOrder: 26
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1682983095
 MonoBehaviour:
@@ -20529,7 +20416,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1730031819}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 677664206}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1730031819
@@ -20745,8 +20643,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000015259}
-  m_SizeDelta: {x: 764.7, y: 347.6}
+  m_AnchoredPosition: {x: 0, y: 16.11}
+  m_SizeDelta: {x: 807.8, y: 447.64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1754511791
 MonoBehaviour:
@@ -20971,7 +20869,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1791479982}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 677664206}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1791479982
@@ -21178,7 +21087,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1802143878
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21857,7 +21766,7 @@ GameObject:
   - component: {fileID: 1831449080}
   - component: {fileID: 1831449079}
   m_Layer: 0
-  m_Name: Main Camera (1)
+  m_Name: Main Camera 2
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23213,11 +23122,6 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224896557338077984, guid: 4f8b16a8d0a582a4f90df06a106b69b7,
     type: 2}
   m_PrefabInternal: {fileID: 257788857}
---- !u!4 &1978084614 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4322560241911344, guid: 77a3fb77f963e864ab04515282939825,
-    type: 2}
-  m_PrefabInternal: {fileID: 1049982503}
 --- !u!1 &1983835798
 GameObject:
   m_ObjectHideFlags: 0
@@ -23863,7 +23767,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2082159579}
   m_LocalRotation: {x: -0.000000029802322, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000016851414}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 765658607}
@@ -23874,7 +23778,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 257.99997, y: 206.00003}
+  m_AnchoredPosition: {x: -552, y: 206}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2082159581
@@ -23895,6 +23799,9 @@ MonoBehaviour:
   selecaoPersonagens: {fileID: 1797547225}
   predios: {fileID: 1877747196}
   listaAmigos: []
+  camera1: {fileID: 1554269691}
+  camera2: {fileID: 1831449078}
+  radar: {fileID: 0}
 --- !u!1 &2083364894
 GameObject:
   m_ObjectHideFlags: 0

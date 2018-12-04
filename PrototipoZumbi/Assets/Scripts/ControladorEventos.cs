@@ -15,6 +15,7 @@ public class ControladorEventos : MonoBehaviour {
 	public string textoEventoAleatorio;
 	public GameObject paiEvento;
 	public GameObject [] botoes;
+	public GameObject amigos;
 
 	[Range(0,100)]
 	public float chanceDeRodarEvento;
@@ -210,6 +211,9 @@ public class ControladorEventos : MonoBehaviour {
 	public void LancarEvento ()
 	{
 		paiEvento.SetActive(true);
+		amigos.SetActive(false);
+
+
 		//Escolher uma linha aleatória do arquivo Eventos.txt
 		int numAleat = Random.Range(1,textoEventos.Length);
 		textoEventoAleatorio = textoEventos[numAleat];

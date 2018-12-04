@@ -302,7 +302,7 @@ public class Amigos : MonoBehaviour
 
 		}
 
-		StartCoroutine(ReordenarPosicoes());
+		StartCoroutine(ReordenarPosicoes(posicaoInicial.x, posicaoInicial.y));
 	}
 
 	public static bool VerificarHomem (Transform t)
@@ -344,6 +344,41 @@ public class Amigos : MonoBehaviour
 		
 		float nextPosX = posicaoInicial.x;
 		float nextPosY = posicaoInicial.y;
+		int predioAtivado = 0;
+
+		for (int i = 0; i < transform.childCount; i++) 
+		{
+			transform.GetChild(i).transform.position = posicaoInicial;
+		}
+
+		//Ver quais predios estão ativados e reordená-los
+		for (int i = 2; i < transform.childCount; i++) 
+		{
+			if (transform.GetChild (i).gameObject.activeSelf) 
+			{
+				predioAtivado ++;
+				transform.GetChild(i).transform.position = new Vector2 (nextPosX, nextPosY);
+
+				//Seta o x e y da proxima posicao
+				nextPosX += transform.GetChild(i).GetComponent<SpriteRenderer> ().bounds.size.x;
+
+				if (predioAtivado % limLinha == 0)
+				{
+					nextPosY -= (transform.GetChild(transform.childCount-1).GetComponent<SpriteRenderer> ().bounds.size.y);
+					nextPosX = posicaoInicial.x;
+				}
+			}
+		}
+
+		transform.GetChild(0).transform.position = new Vector2 (nextPosX, nextPosY);
+	}
+
+	public IEnumerator ReordenarPosicoes (float posInicialX, float posInicialY)
+	{
+		yield return new WaitForSeconds(0.001f);
+		
+		float nextPosX = posInicialX;
+		float nextPosY = posInicialY;
 		int predioAtivado = 0;
 
 		for (int i = 0; i < transform.childCount; i++) 

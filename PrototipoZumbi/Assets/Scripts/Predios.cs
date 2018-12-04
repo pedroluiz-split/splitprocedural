@@ -46,4 +46,12 @@ public class Predios : MonoBehaviour {
 			transform.GetChild(i).GetComponent<BoxCollider>().enabled = true;
 		}
 	}
+
+	public void DesativarTodosPredios ()
+	{
+		for (int i = 0; i < transform.childCount; i++) {
+			transform.GetChild(i).GetComponent<Predio>().GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
+			transform.GetChild(i).GetComponent<Predio>().estaClicado = false;
+		}
+	}
 }

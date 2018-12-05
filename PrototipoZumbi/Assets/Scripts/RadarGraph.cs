@@ -19,15 +19,19 @@ public class RadarGraph : MonoBehaviour {
 		if (transform.parent.name != "TelaAmigo") {
 			posicaoInicial = transform.parent.position;
 		} else {
-			posicaoInicial = transform.parent.position;
+			posicaoInicial = transform.position;
 		}
 		//CriarGrafico();
 		//StartCoroutine(Esperar(0.01f));
 		//Teste();
 		//mesh.SetColors(new List<Color>(4){Color.blue,Color.blue,Color.blue,Color.blue});
-		StartCoroutine(AtualizarRadar(habilidades,0.1f));
+		StartCoroutine(AtualizarRadar(habilidades,0.01f));
 	}
 
+	void Update ()
+	{
+		StartCoroutine(AtualizarRadar(habilidades,0.01f));
+	}
 
 	IEnumerator AtualizarRadar (float [] habilidades, float seg)
 	{

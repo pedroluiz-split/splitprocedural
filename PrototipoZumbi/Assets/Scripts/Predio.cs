@@ -10,7 +10,7 @@ public class Predio : MonoBehaviour {
 	public int qntZumbis;
 	public int qntComidas;
 	public int qntSobreviventes;
-	private bool esperandoClique = false;
+	public bool esperandoClique = false;
 	public GameObject group;
 	private Text dialogo;
 	public GameObject deadbook;

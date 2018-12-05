@@ -52,6 +52,20 @@ public class Predios : MonoBehaviour {
 		for (int i = 0; i < transform.childCount; i++) {
 			transform.GetChild(i).GetComponent<Predio>().GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
 			transform.GetChild(i).GetComponent<Predio>().estaClicado = false;
+			transform.GetChild(i).GetComponent<Predio>().esperandoClique = false;
+			Predio.ultimoAtivo.GetComponent<Predio>().estaClicado = false;
+			Predio.ultimoAtivo.GetComponent<Predio>().esperandoClique = false;
+			AtivarColliders();
+
+			Predio.ultimoAtivo = null;
+		}
+	}
+
+	public void ReativarTodosPredios ()
+	{
+		for (int i = 0; i < transform.childCount; i++) {
+			transform.GetChild(i).GetComponent<Predio>().GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
+			transform.GetChild(i).GetComponent<Predio>().estaClicado = true;
 		}
 	}
 }

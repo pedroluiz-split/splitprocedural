@@ -36,6 +36,14 @@ public class Amigo : MonoBehaviour {
 
 	}
 
+	void Update()
+	{
+//		if (ultimoAmigoAtivo != null)
+//			if (transform.name == ultimoAmigoAtivo.name)
+//				AtualizarRadar();
+		AtualizarRadar();
+	}
+
 
 	public void EscolherHabilidades ()
 	{
@@ -94,7 +102,8 @@ public class Amigo : MonoBehaviour {
 	public void AtualizarRadar ()
 	{
 		radar.transform.GetChild(0).GetComponent<RadarGraph>().habilidades = this.listaHabilidades;
-		radar.transform.GetChild(0).GetComponent<RadarGraph>().DebugDrawPolygon(radar.transform.GetChild(0).GetComponent<RadarGraph>().posicaoInicial,radar.transform.GetChild(0).GetComponent<RadarGraph>().raio,radar.transform.GetChild(0).GetComponent<RadarGraph>().qntItens);
+		//radar.transform.GetChild(0).GetComponent<RadarGraph>().DebugDrawPolygon(radar.transform.GetChild(0).GetComponent<RadarGraph>().posicaoInicial,radar.transform.GetChild(0).GetComponent<RadarGraph>().raio,radar.transform.GetChild(0).GetComponent<RadarGraph>().qntItens);
+		radar.transform.GetChild(0).GetComponent<RadarGraph>().DebugDrawPolygon(radar.transform.GetChild(0).GetComponent<RadarGraph>().posicaoInicial,1,9);
 	}
 
 	public void ArrumarTelaAmigo ()

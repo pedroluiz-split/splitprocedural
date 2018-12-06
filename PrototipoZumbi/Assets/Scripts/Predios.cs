@@ -39,7 +39,6 @@ public class Predios : MonoBehaviour {
 		transform.GetChild(col).GetComponent<BoxCollider>().enabled = true;
 	}
 
-
 	public void AtivarColliders ()
 	{
 		for (int i = 0; i < transform.childCount; i++) {
@@ -50,11 +49,16 @@ public class Predios : MonoBehaviour {
 	public void DesativarTodosPredios ()
 	{
 		for (int i = 0; i < transform.childCount; i++) {
-			transform.GetChild(i).GetComponent<Predio>().GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
-			transform.GetChild(i).GetComponent<Predio>().estaClicado = false;
-			transform.GetChild(i).GetComponent<Predio>().esperandoClique = false;
-			Predio.ultimoAtivo.GetComponent<Predio>().estaClicado = false;
-			Predio.ultimoAtivo.GetComponent<Predio>().esperandoClique = false;
+			transform.GetChild (i).GetComponent<Predio> ().GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
+			transform.GetChild (i).GetComponent<Predio> ().estaClicado = false;
+			transform.GetChild (i).GetComponent<Predio> ().esperandoClique = false;
+
+//			if (Predio.ultimoAtivo != null)
+//				Predio.ultimoAtivo.GetComponent<Predio> ().GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.green);
+
+			Predio.ultimoAtivo.GetComponent<Predio> ().estaClicado = false;
+			Predio.ultimoAtivo.GetComponent<Predio> ().esperandoClique = false;
+
 			AtivarColliders();
 
 			Predio.ultimoAtivo = null;
@@ -64,7 +68,10 @@ public class Predios : MonoBehaviour {
 	public void ReativarTodosPredios ()
 	{
 		for (int i = 0; i < transform.childCount; i++) {
-			transform.GetChild(i).GetComponent<Predio>().GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
+			if (transform.GetChild(i).GetComponent<Predio>().jaEntrou)
+				transform.GetChild(i).GetComponent<Predio>().GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.green);
+			else
+				transform.GetChild(i).GetComponent<Predio>().GetComponent<MeshRenderer> ().material.SetColor ("_Color", Color.white);
 			transform.GetChild(i).GetComponent<Predio>().estaClicado = true;
 		}
 	}

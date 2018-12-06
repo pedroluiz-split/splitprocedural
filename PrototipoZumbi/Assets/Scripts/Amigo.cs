@@ -41,7 +41,7 @@ public class Amigo : MonoBehaviour {
 //		if (ultimoAmigoAtivo != null)
 //			if (transform.name == ultimoAmigoAtivo.name)
 //				AtualizarRadar();
-		AtualizarRadar();
+		//AtualizarRadar();
 	}
 
 
@@ -101,9 +101,9 @@ public class Amigo : MonoBehaviour {
 
 	public void AtualizarRadar ()
 	{
-		radar.transform.GetChild(0).GetComponent<RadarGraph>().habilidades = this.listaHabilidades;
+		radar.GetComponent<RadarGraph>().habilidades = listaHabilidades;
 		//radar.transform.GetChild(0).GetComponent<RadarGraph>().DebugDrawPolygon(radar.transform.GetChild(0).GetComponent<RadarGraph>().posicaoInicial,radar.transform.GetChild(0).GetComponent<RadarGraph>().raio,radar.transform.GetChild(0).GetComponent<RadarGraph>().qntItens);
-		radar.transform.GetChild(0).GetComponent<RadarGraph>().DebugDrawPolygon(radar.transform.GetChild(0).GetComponent<RadarGraph>().posicaoInicial,1,9);
+		radar.GetComponent<RadarGraph>().DebugDrawPolygon(radar.GetComponent<RadarGraph>().posicaoInicial,1,9);
 	}
 
 	public void ArrumarTelaAmigo ()
@@ -119,7 +119,7 @@ public class Amigo : MonoBehaviour {
 	{
 		//Ao clicar nos amigos da TimeLine
 		if (!transform.name.Contains ("$")) {
-			radar.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
+			radar.transform.parent.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
 			amigoEscolhido = transform.GetSiblingIndex ();
 			//Amigos.amigos.AtualizarRadar (listaHabilidades);
 			//radar.transform.GetChild(0).GetComponent<RadarGraph>().ChamarAtual(listaHabilidades);

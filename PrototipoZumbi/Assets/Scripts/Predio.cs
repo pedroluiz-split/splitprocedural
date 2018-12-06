@@ -61,6 +61,7 @@ public class Predio : MonoBehaviour {
 
 		//Se não entrou no predio
 		if (!jaEntrou) {
+			infoPredioObjeto.transform.parent.GetChild(1).gameObject.SetActive(true);
 			//Caso esteja já clicado
 			if (estaClicado) 
 			{
@@ -148,6 +149,8 @@ public class Predio : MonoBehaviour {
 				estaClicado = true;
 				infoPredioObjeto.GetComponent<Text>().text = "Prédio "+ transform.name + "\n\nPrédio Conquistado!";
 				infoPredioObjeto.transform.parent.gameObject.SetActive (true);
+
+				infoPredioObjeto.transform.parent.GetChild(1).gameObject.SetActive(false);
 			}
 
 		}
@@ -190,6 +193,8 @@ public class Predio : MonoBehaviour {
 	{
 		jaEntrou = true;
 		ultimoAtivo = null;
+
+		Predios.predios.AtivarColliders();
 
 		//Ativa o DeadBook
 		deadbook.SetActive (true);

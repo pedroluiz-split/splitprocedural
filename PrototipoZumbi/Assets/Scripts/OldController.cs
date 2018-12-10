@@ -27,6 +27,8 @@ public class OldController : MonoBehaviour {
 	public float avisoFadigaLim = 0.5f;
 	private GameObject viewportInicial;
 	public static OldController oldController;
+	public float chanceAmigoPorcentagem = 5f;
+	public string [] frasesPadrao;
 
 	void Awake ()
 	{
@@ -156,7 +158,7 @@ public class OldController : MonoBehaviour {
 		bool[] roleta = RoletaAmigos ();
 
 		if (roleta [1]) {
-			AdicionarTextoTimeLine("Perdi um querido amigo de doença...");
+			AdicionarTextoTimeLine ("Perdi um querido amigo de doença...");
 
 //			if (fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Contains ("DIA " + diasPassados))
 //				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Replace ("DIA " + diasPassados, "DIA " + diasPassados + "\n\nPerdi um querido amigo...");
@@ -164,7 +166,7 @@ public class OldController : MonoBehaviour {
 //				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = "DIA " + diasPassados + "\n\nPerdi um querido amigo...\n\n" + fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text;
 		}
 		if (roleta [0]) {
-			AdicionarTextoTimeLine("Apareceu um sobrevivente aqui no abrigo!");
+			AdicionarTextoTimeLine ("Apareceu um sobrevivente aqui no abrigo!");
 //			if (fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Contains ("DIA " + diasPassados))
 //				fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text = fomeTimeline.transform.parent.GetChild (4).GetComponent<Text> ().text.Replace ("DIA " + diasPassados, "DIA " + diasPassados + "\n\nGanhei um amigo!");
 //			else
@@ -177,9 +179,12 @@ public class OldController : MonoBehaviour {
 //			CharacterController.controller.Gerar_Personagem();
 			Morreu ();
 		} else {
-			ControladorEventos.controladorEventos.SortearEvento();
+			ControladorEventos.controladorEventos.SortearEvento ();
 		}
 
+		if (!roleta [0] && !roleta [1] && !ControladorEventos.rodouEvento) {
+			MostrarFrasePadrão (frasesPadrao [Random.Range (0, frasesPadrao.Length)]);
+		}
 
 	}
 
@@ -191,7 +196,7 @@ public class OldController : MonoBehaviour {
 		List<GameObject> listaAmigosDesativados = new List<GameObject> ();
 
 		//Roda a chance de perder um amigo
-		if (Random.Range (0, 10) > 7) {
+		if (Random.Range (0f, 100f) <= chanceAmigoPorcentagem) {
 			//Correr pelos filhos de "Amigos" (sem contar o 0) e ver qual está ativo e desativar
 			for (int i = 2; i < amigos.transform.childCount; i++) {
 				//Caso o filho esteja ativado, desativá-lo
@@ -216,7 +221,7 @@ public class OldController : MonoBehaviour {
 		}
 
 		//Roda a chance de ganhar um amigo
-		if (Random.Range (0, 10) > 7) 
+		if (Random.Range (0f, 100f) <= chanceAmigoPorcentagem) 
 		{
 			GameObject amigo = amigos.GetComponent<Amigos>().CriarAmigo();
 			ganhou = true;
@@ -228,6 +233,11 @@ public class OldController : MonoBehaviour {
 		}
 
 		return new bool[2]{ganhou,perdeu};
+	}
+
+	public void MostrarFrasePadrão (string texto)
+	{
+		AdicionarTextoTimeLine(texto);
 	}
 
 	public void PerderAmigo (int qntAmigos)

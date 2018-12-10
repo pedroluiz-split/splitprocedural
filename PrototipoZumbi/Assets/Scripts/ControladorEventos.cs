@@ -24,6 +24,8 @@ public class ControladorEventos : MonoBehaviour {
 
 	public GameObject karmaText;
 
+	public static bool rodouEvento;
+
 	void Awake ()
 	{
 		if (controladorEventos == null) {
@@ -56,7 +58,10 @@ public class ControladorEventos : MonoBehaviour {
 		if (Random.Range (0, 100) <= chanceDeRodarEvento) 
 		{
 			LancarEvento();
+			rodouEvento = true;
 		}
+		else
+			rodouEvento = false;
 	}
 
 	public void BotaoOnClick (int botaoNum)

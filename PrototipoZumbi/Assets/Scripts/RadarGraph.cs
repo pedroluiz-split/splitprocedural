@@ -16,7 +16,8 @@ public class RadarGraph : MonoBehaviour {
 	void Start ()
 	{  
 		//Caso for o player, coloca posicao inicial como transform.position. Caso não, transform.localPosition
-		if (transform.parent.name != "TelaAmigo") {
+		if (transform.parent.name != "TelaAmigo") 
+		{
 			posicaoInicial = transform.parent.position;
 		} else {
 			posicaoInicial = transform.position;
@@ -25,12 +26,12 @@ public class RadarGraph : MonoBehaviour {
 		//StartCoroutine(Esperar(0.01f));
 		//Teste();
 		//mesh.SetColors(new List<Color>(4){Color.blue,Color.blue,Color.blue,Color.blue});
-		StartCoroutine(AtualizarRadar(habilidades,0.01f));
+		StartCoroutine(AtualizarRadar(habilidades,0.000001f));
 	}
 
 	void Update ()
 	{
-		StartCoroutine(AtualizarRadar(habilidades,0.01f));
+		StartCoroutine(AtualizarRadar(habilidades,0.000001f));
 	}
 
 	IEnumerator AtualizarRadar (float [] habilidades, float seg)
@@ -46,7 +47,7 @@ public class RadarGraph : MonoBehaviour {
 
 	public void ChamarAtual(float [] habilidades){
 
-		StartCoroutine(AtualizarRadar(habilidades,0.01f));
+		StartCoroutine(AtualizarRadar(habilidades,0.000001f));
 	}
 
 
@@ -121,7 +122,7 @@ public class RadarGraph : MonoBehaviour {
 
 			}
 
-			Debug.Log ("Vertice 1: " + vertices [1] + " Vertice 2: " + vertices [2]);
+			//Debug.Log ("Vertice 1: " + vertices [1] + " Vertice 2: " + vertices [2]);
 
 			mesh.vertices = vertices;
 
@@ -134,12 +135,12 @@ public class RadarGraph : MonoBehaviour {
 				triangulos [i + 2] = (i / 3) + 1;
 			}
 
-			Debug.Log (triangulos [triangulos.Length - 1]);
+			//Debug.Log (triangulos [triangulos.Length - 1]);
 
 			mesh.triangles = triangulos;
 
 			// Draw the final side by connecting the last corner to the starting corner.
-			Debug.DrawLine (startCorner, previousCorner);
+			//Debug.DrawLine (startCorner, previousCorner);
 
 			AjustarNormaisEUVs (mesh);
 

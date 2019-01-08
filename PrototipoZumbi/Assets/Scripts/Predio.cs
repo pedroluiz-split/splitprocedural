@@ -24,17 +24,38 @@ public class Predio : MonoBehaviour {
 	public int combateTotal;
 	public Predio predio;
 	private string infos;
+	public Vector3 posicaoInicial;
+	public static bool podeProcurar = false;
 
 	void Awake ()
 	{
 		predio = this.GetComponent<Predio>();
 		group = GameObject.Find("Group");
+
 	}
 
+	public void ProcurarNovaPosicao ()
+	{
+		transform.localPosition = new Vector3(Random.Range(-150,150), posicaoInicial.y, Random.Range(-150,150));
+	}
+
+	void OnCollisionStay (Collision collisionInfo)
+	{
+		//ProcurarNovaPosicao();
+		Debug.Log("Procurou nova posicao");
+	}
+
+	void OnTriggerStay(Collider other)
+    {
+    	if (podeProcurar)
+			ProcurarNovaPosicao();
+		//Debug.Log("Procurou nova posicao");
+    }
 
 	// Use this for initialization
 	void Start () {
-		
+		posicaoInicial = transform.localPosition;
+		//ProcurarNovaPosicao();
 		predio = this;
 		group.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0);
 		//infoPredioObjeto = transform.parent.parent.transform.transform.GetChild(0).GetChild(0).gameObject;
@@ -226,6 +247,8 @@ public class Predio : MonoBehaviour {
 		group.SetActive(false);
 
 		Amigos.amigos.ReordenarPosicoes();
+
+		ListaPersonagens.listaAmigos.Clear();
 
 	}
 

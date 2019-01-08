@@ -16,12 +16,14 @@ public class Amigo : MonoBehaviour {
 	private TextAsset nomeMascText;
 	private TextAsset nomeFemText;
 	public bool personagemMasc;
-	public static int amigoEscolhido;
+	public static int amigoEscolhido = 0;
 	public bool estaClicado = false;
 	public static GameObject amigo;
 	public GameObject radar;
-	public GameObject cameraCerta;
+	public GameObject camera1, camera2;
 	public static GameObject ultimoAmigoAtivo;
+	private GameObject selecaoPersonagens;
+	public static Sprite ultimoSprite;
 
 	// Use this for initialization
 	void Start ()
@@ -30,8 +32,13 @@ public class Amigo : MonoBehaviour {
 //			radar = GameObject.Find("Group$").transform.GetChild(0).GetChild(2).GetChild(2).GetChild(0).gameObject;
 		EscolherTudo ();
 		transform.name = transform.name.Replace ("1(Clone)", transform.GetSiblingIndex ().ToString ());
-		if (transform.name.Contains("$")) {
+		if (transform.name.Contains ("$")) {
 			GetComponent<SpriteRenderer> ().color = new Color (0.5f, 0.5f, 0.5f, 1);
+		}
+
+		if (transform.parent.name.Contains("Group")) 
+		{
+			selecaoPersonagens = transform.parent.GetChild(0).GetChild(1).GetChild(0).GetChild(1).gameObject;
 		}
 
 	}
@@ -97,6 +104,7 @@ public class Amigo : MonoBehaviour {
 		EscolherProfissao();
 		EscolherDescricao();
 		EscolherHabilidades();
+
 	}
 
 	public void AtualizarRadar ()
@@ -117,13 +125,14 @@ public class Amigo : MonoBehaviour {
 
 	void OnMouseDown ()
 	{
+		
 		//Ao clicar nos amigos da TimeLine
 		if (!transform.name.Contains ("$")) {
 			radar.transform.parent.GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
 			amigoEscolhido = transform.GetSiblingIndex ();
 			//Amigos.amigos.AtualizarRadar (listaHabilidades);
 			//radar.transform.GetChild(0).GetComponent<RadarGraph>().ChamarAtual(listaHabilidades);
-			radar.SetActive(true);
+			radar.SetActive (true);
 			transform.parent.parent.gameObject.SetActive (false);
 			//AtualizarRadar(listaHabilidades);
 			//radar.transform.GetChild(0)
@@ -132,58 +141,65 @@ public class Amigo : MonoBehaviour {
 
 			//Ao clicar nos amigos para selecionar quem vai entrar no prédio 
 		} else {
+			estaClicado = !estaClicado;
+
 			if (ultimoAmigoAtivo != null) {
+
 				ultimoAmigoAtivo.GetComponent<SpriteRenderer> ().color = new Color (0.5f, 0.5f, 0.5f, 1);
-				estaClicado = false;
+				ultimoAmigoAtivo.GetComponent<Amigo> ().estaClicado = false;
+				ListaPersonagens.totalCombate -= ultimoAmigoAtivo.GetComponent<Amigo> ().listaHabilidades[5];
+				ultimoSprite = null;
 			}
-				transform.parent.parent.GetChild(0).GetChild(2).GetChild(2).gameObject.SetActive(true);
-				//radar = transform.parent.parent.GetChild(0).GetChild(2).GetChild(2).gameObject;
-				//radar.transform.GetComponent<Utilitario>().ReaparecerGrafico(radar.transform.gameObject);
-				//Caso não tenha pai, ele verifica se aquele amigo está selecionado e troca a cor. Caso não esteja selecionado, troca a cor
-				if (estaClicado) {
-					//EscolherPersonagem ();
-				if (amigoEscolhido != 0 && amigoEscolhido != null) {
-						transform.parent.transform.GetChild (amigoEscolhido).GetComponent<SpriteRenderer> ().color = new Color (0.5f, 0.5f, 0.5f, 1);
-						transform.parent.transform.GetChild (amigoEscolhido).GetComponent<Amigo> ().estaClicado = false;
-					}
-				} else {
-				transform.parent.transform.GetChild (transform.GetSiblingIndex()).GetComponent<SpriteRenderer> ().color = new Color (1f, 1f, 1f, 1);
-					amigoEscolhido = transform.GetSiblingIndex ();
-					estaClicado = true;
-					radar.GetComponent<SpriteRenderer>().color = new Color (1,1,1,1);
-//					if (radar != null) {
-//						radar.GetComponent<RadarGraph>().ChamarAtual(listaHabilidades);
-						//Amigos.amigos.AtualizarRadar (listaHabilidades);
-					
 
-
-				}
-				Debug.Log("Mudou cameras");
-				Camera.main.gameObject.SetActive(false);
-				cameraCerta.SetActive(true);
+			if (estaClicado) {
+				GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 1);
 				ultimoAmigoAtivo = this.gameObject;
-				//transform.position = transform.parent.position;
-				//StartCoroutine(transform.parent.GetComponent<Amigos>().ReordenarPosicoes());
+				for (int i = 0; i > Amigos.amigos.transform.childCount; i++) {
+					if (Amigos.amigos.transform.GetChild (i).name == this.name) {
+						amigoEscolhido = i;
+
+					}
+				}
+				amigoEscolhido = transform.GetSiblingIndex();
+				ultimoSprite = this.GetComponent<SpriteRenderer>().sprite;
+				ListaPersonagens.listaAmigos.Add(transform.GetSiblingIndex());
+				ListaPersonagens.totalCombate += listaHabilidades[5];
+				Debug.Log("Combate: "+ListaPersonagens.totalCombate);
+
+			} else {
+				GetComponent<SpriteRenderer> ().color = new Color (0.5f, 0.5f, 0.5f, 1);
+				ultimoAmigoAtivo = null;
+				amigoEscolhido = 0;
+				ultimoSprite = null;
+				ListaPersonagens.listaAmigos.Remove(transform.GetSiblingIndex());
+				ListaPersonagens.totalCombate -= listaHabilidades[5];
+				Debug.Log("Combate: "+ListaPersonagens.totalCombate);
 			}
 
 
+			//Debug.Log("Mudou cameras");
+			//Camera.main.gameObject.SetActive(false);
+//			camera1.SetActive(false);
+//			camera2.SetActive(true);
+
+			Debug.Log(amigoEscolhido);
 		}
 
-		public void SelecionarAmigos ()
-	{
 
 	}
-    //Caso o amigo escolhido não seja null ao clicar no botão, ele volta a ter a cor escura.
 
-    public void EscolherPersonagem ()
+    public void EscolherPersonagem (int amigo)
 	{
-		estaClicado = false;
-		//Coloca no amigo escolhido
-		Debug.Log ("Amigo " + amigoEscolhido);
-		ListaPersonagens.listaPersonagens.TrocarImagemBotao (amigoEscolhido);
-		ListaPersonagens.listaPersonagens.transform.parent.GetChild (1).gameObject.SetActive (true);
-		ListaPersonagens.listaPersonagens.gameObject.SetActive (false);
-		amigoEscolhido = 0;
+		//amigoEscolhido = amigo;
+		if (amigo != 0) {
+			estaClicado = false;
+			//Coloca no amigo escolhido
+			Debug.Log ("Amigo " + amigo);
+			//ListaPersonagens.listaPersonagens.TrocarImagemBotao (amigoEscolhido);
+			//ListaPersonagens.listaPersonagens.transform.parent.GetChild (1).gameObject.SetActive (true);
+			//ListaPersonagens.listaPersonagens.gameObject.SetActive (false);
+		}
+
 		Destroy (transform.parent.gameObject);
 	}
 }

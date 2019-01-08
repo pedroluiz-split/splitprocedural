@@ -1,0 +1,5 @@
+Exemplo
+combate 230
+Chance de Sucesso: 30%
+70% de alguém morrer
+30% de coletar a comida inteira e todos sobreviventes

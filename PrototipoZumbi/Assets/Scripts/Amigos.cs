@@ -18,9 +18,9 @@ public class Amigos : MonoBehaviour
 	{
 		if (amigos == null)
 			amigos = this;
-		else
-			amigos.GetComponent<Amigos>().enabled = false;
-			GameObject amigoOriginal = null;
+//		else
+//			amigos.GetComponent<Amigos>().enabled = false;
+//			GameObject amigoOriginal = null;
 			//amigoNovo = null;
 	}
 
@@ -41,6 +41,7 @@ public class Amigos : MonoBehaviour
 
 		//StartCoroutine(AtualizarLista());
 	}
+
 
 
 	public IEnumerator AtualizarLista ()
@@ -66,7 +67,8 @@ public class Amigos : MonoBehaviour
 	void Update ()
 	{
 		AtualizarTexto();
-
+		if (this.gameObject.Equals(amigos.gameObject))
+			StartCoroutine(ReordenarPosicoes());
 	}
 
 	public void AtualizarTexto ()
@@ -383,11 +385,11 @@ public class Amigos : MonoBehaviour
 
 		for (int i = 0; i < transform.childCount; i++) 
 		{
-			transform.GetChild(i).transform.position = posicaoInicial;
+			transform.GetChild(i).transform.position = new Vector2(posInicialX,posInicialY);
 		}
 
 		//Ver quais predios estão ativados e reordená-los
-		for (int i = 2; i < transform.childCount; i++) 
+		for (int i = 1; i < transform.childCount; i++) 
 		{
 			if (transform.GetChild (i).gameObject.activeSelf) 
 			{

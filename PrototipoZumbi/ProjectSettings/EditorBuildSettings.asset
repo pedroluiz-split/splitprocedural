@@ -11,9 +11,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MapProcedural.unity
     guid: 1697c5937629b17419ce8804f8b2f827
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/OldCharacter.unity
     guid: 7830f8df23f780044a43ff4567842df5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GoogleMaps.unity
     guid: 08cbb483872456146b55e68b5c8a270c
+  - enabled: 0
+    path: Assets/Scenes/OldCharacter - Copia.unity
+    guid: f5e8b5dcde31ac74690134cd963b7915
+  - enabled: 1
+    path: Assets/Demo/SpeechEngine/Test.unity
+    guid: 01e299c1dc02ddd4a8826a5998c42531
+  m_configObjects: {}

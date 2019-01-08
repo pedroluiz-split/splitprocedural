@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class OldController : MonoBehaviour {
 
@@ -70,15 +71,24 @@ public class OldController : MonoBehaviour {
 		graficoRadar.GetComponent<RadarGraph>().DebugDrawPolygon(graficoRadar.GetComponent<RadarGraph>().posicaoInicial,1,9);
 	}
 
-	public void EscolherHabilidades()
+	public void EscolherHabilidades ()
 	{
-		listaHabilidades = new float[8];
+		if (SceneManager.GetActiveScene ().name.Contains ("Copia")) {
+			listaHabilidades = new float[8];
 
-		for (int i = 0; i < listaHabilidades.Length; i++) {
-			if (i == 0 || i == 2 || i == 4 || i == 6)
-				listaHabilidades[i] = 50;
-			else
-				listaHabilidades[i] = 10;
+			for (int i = 0; i < listaHabilidades.Length; i++) {
+				listaHabilidades[i] = Random.Range(0,100);
+			}
+		} else {
+
+			listaHabilidades = new float[8];
+
+			for (int i = 0; i < listaHabilidades.Length; i++) {
+				if (i == 0 || i == 2 || i == 4 || i == 6)
+					listaHabilidades [i] = 50;
+				else
+					listaHabilidades [i] = 10;
+			}
 		}
 	}
 

@@ -107,6 +107,11 @@ public class Amigo : MonoBehaviour {
 
 	}
 
+	public void ChanceMorrer ()
+	{
+		
+	}
+
 	public void AtualizarRadar ()
 	{
 		radar.GetComponent<RadarGraph>().habilidades = listaHabilidades;
@@ -143,7 +148,7 @@ public class Amigo : MonoBehaviour {
 		} else {
 			estaClicado = !estaClicado;
 
-			if (ultimoAmigoAtivo != null) {
+			if (ultimoAmigoAtivo != null && ultimoAmigoAtivo != this.gameObject) {
 
 				ultimoAmigoAtivo.GetComponent<SpriteRenderer> ().color = new Color (0.5f, 0.5f, 0.5f, 1);
 				ultimoAmigoAtivo.GetComponent<Amigo> ().estaClicado = false;
@@ -176,7 +181,8 @@ public class Amigo : MonoBehaviour {
 				Debug.Log("Combate: "+ListaPersonagens.totalCombate);
 			}
 
-
+			if (Predio.ultimoAtivo != null)
+				Predio.ultimoAtivo.GetComponent<Predio>().AtualizarChanceSucesso();
 			//Debug.Log("Mudou cameras");
 			//Camera.main.gameObject.SetActive(false);
 //			camera1.SetActive(false);

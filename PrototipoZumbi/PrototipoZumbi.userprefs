@@ -1,18 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ListaPersonagens.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Predio.cs">
     <Files>
       <File FileName="Assets\Scripts\ControladorEventos.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Amigos.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\OldController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Amigo.cs" Line="154" Column="22" />
-      <File FileName="Assets\Scripts\ListaPersonagens.cs" Line="199" Column="43" />
+      <File FileName="Assets\Scripts\Amigo.cs" Line="112" Column="3" />
+      <File FileName="Assets\Scripts\ListaPersonagens.cs" Line="23" Column="22" />
       <File FileName="Assets\Scripts\RadarGraph.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Predios.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Predio.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Personalidade.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Predio.cs" Line="254" Column="5" />
       <File FileName="Assets\Scripts\EmpresaNome.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ReconhecimentoVoz.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ReconhecimentoVoz.cs" Line="4" Column="22" />
       <File FileName="Assets\Scripts\EscolhaPersonagem.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

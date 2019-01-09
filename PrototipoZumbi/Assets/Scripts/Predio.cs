@@ -19,7 +19,6 @@ public class Predio : MonoBehaviour {
 	public GameObject amigos;
 	public float volumeObjeto;
 	public bool jaEntrou = false;
-	[Range(0,100)]
 	public float chanceDeSucesso;
 	public int combateTotal;
 	public Predio predio;
@@ -63,13 +62,13 @@ public class Predio : MonoBehaviour {
 		infoPredioObjeto.GetComponent<Text>().text = group.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).GetComponent<Text>().text;
 		group.transform.GetChild(0).localScale = new Vector3(1,1,1);
 		volumeObjeto = GetComponent<MeshRenderer>().bounds.size.x*GetComponent<MeshRenderer>().bounds.size.y*GetComponent<MeshRenderer>().bounds.size.z*2000;
-		Debug.Log(volumeObjeto+ "Predio"+transform.name);
+		//Debug.Log(volumeObjeto+ "Predio"+transform.name);
 		qntZumbis = Random.Range(1,(int)volumeObjeto);
 		qntComida = Random.Range(1,(int)volumeObjeto/10);
 		qntSobreviventes = Random.Range(1,(int)volumeObjeto/20);
 
 		infos = AtualizarTextoChance();
-		Debug.Log(infos);
+		//Debug.Log(infos);
 		AtualizarChanceSucesso();
 	}
 
@@ -79,6 +78,7 @@ public class Predio : MonoBehaviour {
 		infos = AtualizarTextoChance();
 		AtualizarTextoChance();
 		AtualizarChanceSucesso ();
+		Debug.Log("Total do FUCKING combate"+ListaPersonagens.totalCombate);
 
 		//Se não entrou no predio
 		if (!jaEntrou) {
@@ -180,19 +180,32 @@ public class Predio : MonoBehaviour {
     public float AtualizarChanceSucesso ()
 	{
 //		
-		combateTotal = 0;
-		for (int i = 0; i < Amigos.amigos.transform.childCount - 2; i++) {
-			if (Amigos.amigos.amigosGobj.Length  > i) {
-				if (Amigos.amigos.amigosGobj [i].name.EndsWith ("$")) {
-					combateTotal += (int)(Amigos.amigos.amigosGobj [i].GetComponent<Amigo> ().listaHabilidades [5]);
-					Debug.Log ("Total Combate: " + combateTotal);
-				}
-			}
-		}
+//		combateTotal = 0;
+//		for (int i = 0; i < Amigos.amigos.transform.childCount - 2; i++) {
+//			if (Amigos.amigos.amigosGobj.Length  > i) {
+//				if (Amigos.amigos.amigosGobj [i].name.EndsWith ("$")) {
+//					combateTotal += (int)(Amigos.amigos.amigosGobj [i].GetComponent<Amigo> ().listaHabilidades [5]);
+//					Debug.Log ("Total Combate: " + combateTotal);
+//				}
+//			}
+//		}
 
-		float chanceSucesso = combateTotal/qntZumbis;
+//		float chanceSucesso = combateTotal/qntZumbis;
 
-		return chanceSucesso;
+		//chanceDeSucesso = (Mathf.Log(qntZumbis, 0.95f) + 100) + Mathf.Pow(Mathf.Log(combateTotal, 2), 2);
+
+		chanceDeSucesso = (Mathf.Log(qntZumbis, 0.95f) + 100) + Mathf.Pow(Mathf.Log(ListaPersonagens.totalCombate, 2), 2);
+
+		//chanceDeSucesso = ListaPersonagens.totalCombate;
+
+		if (chanceDeSucesso < 0 || chanceDeSucesso == Mathf.Infinity)
+			chanceDeSucesso = 0;
+		else if (chanceDeSucesso > 100)
+			chanceDeSucesso = 100;
+
+		TrocarTextoDialogo();
+
+		return chanceDeSucesso;
 	}
 
 	public float ChanceSucesso ()
@@ -215,7 +228,7 @@ public class Predio : MonoBehaviour {
 		jaEntrou = true;
 		ultimoAtivo = null;
 
-		Predios.predios.AtivarColliders();
+		Predios.predios.AtivarColliders ();
 
 		//Ativa o DeadBook
 		deadbook.SetActive (true);
@@ -228,7 +241,17 @@ public class Predio : MonoBehaviour {
 
 		if (chanceDeSucesso < 100) {
 			//OldController.oldController.PerderAmigo((int)((100-chanceDeSucesso)/100f*(Amigos.amigos.transform.childCount-2)));
+			string amigosPerdidos = "";
 
+			foreach (int i in ListaPersonagens.listaAmigos) {
+				if (Random.Range (0, 100) < chanceDeSucesso) {
+					Destroy (Amigos.amigos.transform.GetChild (i).gameObject);
+					amigosPerdidos = Amigos.amigos.transform.GetChild (i).GetComponent<Amigo>().nomeEscolhido + " ";
+				}
+			}
+
+			if (amigosPerdidos != "")
+				OldController.oldController.AdicionarTextoTimeLine("Perdemos " + amigosPerdidos+"na missão");
 		}
 		List<GameObject> amigosMissao = new List<GameObject>();
 		for (int i = 0; i < qntSobreviventes; i++) 

@@ -37,6 +37,7 @@ public class ListaPersonagens : MonoBehaviour {
 		botao = num;
 	}
 
+
 	public void InstanciarLista ()
 	{
 		TrocarCamera(camera2,camera1);
